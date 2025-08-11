@@ -1,0 +1,236 @@
+:root{
+    --text-color:#1a1c20;
+    --link-color:#4a76ee;
+    --background-color:rgba(239, 239, 208, 0.7);
+}
+
+#outputConsole, #outputConsole p {
+    font-family: 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', 'Apple Color Emoji', 'Arial', 'sans-serif', monospace !important;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+
+body{
+    background-image: url(images/charlie-suchart-OkApJ8kYLvI-unsplash.jpg);
+    background-size: cover;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.center-wrapper {
+  padding:100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 600px;
+  min-height: 100vh;   /* CAMBIO: usa 100vh para ocupar toda la altura de la ventana */
+  height: 100vh;       /* CAMBIO: fuerza altura completa */
+}
+
+
+    /* margin: 50px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center; */
+
+.cuadro {
+  background-color: var(--background-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 98vw;
+  max-width: 900px;
+  min-width: 0;
+  min-height: 0;
+  /* padding: 0.7rem 0.5rem; */
+  border-radius: 10px;
+  gap: 0.5rem;
+}
+
+.botones {
+  display: flex;
+  flex-wrap: wrap;         /* Permite que los botones pasen a la siguiente línea */
+  gap: 0.4rem;
+  justify-content: center;
+}
+.botones button {
+  background-color: #004E89;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  min-width: 110px; 
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  white-space: nowrap;
+  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+
+.botones {
+  /* Convierte el div en un contenedor flexible */
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente fila */
+  justify-content: space-between; /* Distribuye los elementos con espacio entre ellos */
+}
+
+.script-button.scriptA-button:where([data-script="4"]) {
+  background-color: #ff9900;
+}
+.script-button.scriptB-button:where([data-script="8"]) {
+  background-color: #ff9900;
+}
+
+/* Regla para los 3 primeros botones */
+.script-button:where([data-script="1"]),
+.script-button:where([data-script="2"]),
+.script-button:where([data-script="3"]) {
+  /* Ocupan ~33% del ancho, dejando espacio para un pequeño margen */
+  flex-basis: 32%;
+  margin-bottom: 10px; /* Separación entre filas */
+}
+.script-button:where([data-script="5"]),
+.script-button:where([data-script="6"]),
+.script-button:where([data-script="7"]) {
+  /* Ocupan ~33% del ancho, dejando espacio para un pequeño margen */
+  flex-basis: 32%;
+  margin-bottom: 10px; /* Separación entre filas */
+}
+
+/* Regla para el cuarto botón */
+.script-button:where([data-script="4"]) {
+  /* Ocupa el 100% del ancho del contenedor */
+  flex-basis: 100%;
+}
+.script-button:where([data-script="8"]) {
+  /* Ocupa el 100% del ancho del contenedor */
+  flex-basis: 100%;
+}
+.script-button:where([data-script="9"]) {
+  /* Ocupa el 100% del ancho del contenedor */
+  flex-basis: 100%;
+}
+
+.botones button:hover{
+  color: #004E89;
+  background-color:white;
+
+}
+
+
+.cuadro .seccion-1 h1{
+    font-size: 30px;
+}
+
+.cuadro .seccion-1 form{
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cuadro .seccion-1 form{
+
+  gap:10px;
+}
+
+.cuadro .seccion-1 form select{
+    width: 200px;
+    height: 25px;
+    text-align: center;
+    background-color: var(--background-color);
+}
+
+ .hidden {
+            display: none;
+        }
+
+        /* Estilos para la consola de salida */
+.output-label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.25rem; /* text-xl de Tailwind */
+    font-weight: bold;
+    text-align: left; /* Alinea el label a la izquierda */
+}
+
+#outputConsole {
+    background: #222 !important;
+    color: #fff !important;
+    min-height: 40px !important; 
+    max-height: 90px;
+    font-size: 13px !important;
+    border-radius: 8px;
+    padding: 7px;
+    overflow-y: auto;
+    font-family: 'Consolas', 'Monaco', 'Lucida Console', monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin-top: 10px;
+    border: 1px solid #4b5563;
+    border-radius: 8px;
+}
+#outputConsole p {
+    margin: 0;
+    padding: 2px 0;
+    color: #fff !important;
+}
+
+@media (max-width: 800px) {
+  .center-wrapper {
+    min-width: 0;
+    padding: 0 10px;
+  }
+  .cuadro {
+    width: 100%;
+    min-width: 0;
+    padding: 1rem;
+  }
+  #outputConsole {
+    font-size: 15px !important;
+    min-height: 100px !important;
+    max-height: 180px;
+    padding: 10px;
+  }
+  /* .botones {
+    flex-direction: column;
+    gap: 0.5rem;
+  } */
+  .botones button {
+    width: 100%;
+    /* min-width: 0; */
+  }
+}
+
+/* Media query para pantallas menores a 500px (móviles) */
+@media (max-width: 500px) {
+  .cuadro {
+    padding: 0.5rem;
+    border-radius: 0;
+  }
+  #outputConsole {
+    font-size: 13px !important;
+    min-height: 60px !important;
+    max-height: 120px;
+    padding: 5px;
+  }
+}
+
+

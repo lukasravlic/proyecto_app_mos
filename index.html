@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Scripts</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Carga de Tailwind CSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Enlace a tu archivo de estilos personalizado (si tienes uno) -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+   
+</head>
+<body>
+    <div class="center-wrapper">
+        <section class="cuadro">
+            <div class="seccion-1">
+                <h1>Tratamiento bases MOS</h1>
+                <form action="" class="form">
+                    <label for="reportSelect">Selecciona un reporte:</label>
+                    <select id="reportSelect" class="dropdown">
+                        <option value="scriptA">Forecast</option>
+                        <option value="scriptB">Ventas</option>
+                        <option value="scriptC">MARA</option>
+                    </select>
+                </form>
+            </div>
+
+            <div class="botones">
+                <button class="script-button scriptA-button" data-script="1">Mainstream</button>
+                <button class="script-button scriptA-button" data-script="2">AXS</button>
+                <button class="script-button scriptA-button" data-script="3">Premium</button>
+                <button class="script-button scriptA-button" data-script="4">Consolidación</button>
+
+                <!-- Botones para Script B (inicialmente ocultos) -->
+                <button class="script-button scriptB-button hidden" data-script="5">Mainstream</button>
+                <button class="script-button scriptB-button hidden" data-script="6">AXS</button>
+                <button class="script-button scriptB-button hidden" data-script="7">Premium</button>
+                <button class="script-button scriptB-button hidden" data-script="8">Consolidación</button>
+
+                <!-- Botones para Script C (inicialmente ocultos) -->
+                <button class="script-button scriptC-button hidden" data-script="9">Consolidar MARA</button>
+            </div>
+
+            <span class="output-label">Salida del Script:</span>
+            <div id="outputConsole">
+                <!-- Aquí se mostrará la salida de los scripts -->
+                <p>Esperando la ejecución del script...</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Obtener referencias a los elementos del DOM
+        const reportSelect = document.getElementById('reportSelect');
+        const scriptAButtons = document.querySelectorAll('.scriptA-button');
+        const scriptBButtons = document.querySelectorAll('.scriptB-button');
+        const scriptCButtons = document.querySelectorAll('.scriptC-button');
+        // ¡Esta línea es crucial y ahora está en el lugar correcto!
+        const outputConsole = document.getElementById('outputConsole');
+
+        // Función para mostrar/ocultar botones
+        function updateButtons() {
+            const selectedValue = reportSelect.value;
+
+            // Ocultar todos los botones primero
+            scriptAButtons.forEach(button => button.classList.add('hidden'));
+            scriptBButtons.forEach(button => button.classList.add('hidden'));
+            scriptCButtons.forEach(button => button.classList.add('hidden'));
+
+            // Mostrar los botones según la opción seleccionada
+            if (selectedValue === 'scriptA') {
+                scriptAButtons.forEach(button => button.classList.remove('hidden'));
+            } else if (selectedValue === 'scriptB') {
+                scriptBButtons.forEach(button => button.classList.remove('hidden'));
+            } else if (selectedValue === 'scriptC') {
+                scriptCButtons.forEach(button => button.classList.remove('hidden'));
+            }
+        }
+
+        // Función para añadir texto a la consola de salida
+        // Esta función será llamada desde Python
+        function appendOutput(message) {
+            const p = document.createElement('p');
+            p.textContent = message;
+            outputConsole.appendChild(p);
+            outputConsole.scrollTop = outputConsole.scrollHeight;
+        }
+
+        // Función para limpiar la consola de salida
+        function clearOutput() {
+            outputConsole.innerHTML = '';
+        }
+
+        // Añadir un event listener al select para detectar cambios
+        reportSelect.addEventListener('change', updateButtons);
+
+        // Llamar a la función una vez al cargar la página para asegurar el estado inicial correcto
+        window.onload = updateButtons;
+
+        // Manejo del click en los botones
+        document.querySelectorAll('.script-button').forEach(button => {
+          button.addEventListener('click', () => {
+              const scriptId = button.getAttribute('data-script');
+              clearOutput(); // Limpia la consola antes de mostrar la nueva salida
+              let nombreScript = '';
+              if (scriptId === '1') nombreScript = 'fc_consolidado_mainstream.py';
+              else if (scriptId === '2') nombreScript = 'script2.py';
+              // ...agrega más si tienes otros scripts...
+
+              appendOutput(`Ejecutando ${nombreScript}...`);
+              if (typeof pywebview !== 'undefined' && pywebview.api && pywebview.api.execute_script) {
+                  pywebview.api.execute_script(scriptId).then(result => {
+                      // Muestra cada línea por separado
+                      result.split('\n').forEach(line => {
+                          if (line.trim() !== "") appendOutput(line);
+                      });
+                  });
+              } else {
+                  appendOutput(`Simulación: Ejecutando Script con ID: ${scriptId}`);
+                  appendOutput(`(Para ver la salida real, ejecuta con Pywebview)`);
+              }
+          });
+      });
+    </script>
+</body>
+</html>
