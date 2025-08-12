@@ -12,44 +12,79 @@
    
 </head>
 <body>
-    <div class="center-wrapper">
-        <section class="cuadro">
-            <div class="seccion-1">
-                <h1>Tratamiento bases MOS</h1>
-                <form action="" class="form">
-                    <label for="reportSelect">Selecciona un reporte:</label>
-                    <select id="reportSelect" class="dropdown">
-                        <option value="scriptA">Forecast</option>
-                        <option value="scriptB">Ventas</option>
-                        <option value="scriptC">MARA</option>
-                    </select>
-                </form>
-            </div>
+    <div class="layout">
+        <nav class="sidebar">
+                <h2>Reportes</h2>
+                <ul>
+                    <li><button class="sidebar-link" data-section="mos">MOS</button></li>
+                    <li><button class="sidebar-link" data-section="gs">Gere Solped</button></li>
+                    <li><button class="sidebar-link" data-section="dispo">Otro</button></li>
+                    <!-- Agrega más secciones si lo deseas -->
+                </ul>
+        </nav>
+        <div class="center-wrapper">
+            <section class="cuadro center-section" id="section-mos">
+                <div class="seccion-1 titulo">
+                    <h1>Tratamiento bases MOS</h1>
+                    <form action="" class="form">
+                        <label for="reportSelect">Selecciona un reporte:</label>
+                        <select id="reportSelect" class="dropdown">
+                            <option value="scriptA">Forecast</option>
+                            <option value="scriptB">Ventas</option>
+                            <option value="scriptC">MARA</option>
+                        </select>
+                    </form>
+                </div>
 
-            <div class="botones">
-                <button class="script-button scriptA-button" data-script="1">Mainstream</button>
-                <button class="script-button scriptA-button" data-script="2">AXS</button>
-                <button class="script-button scriptA-button" data-script="3">Premium</button>
-                <button class="script-button scriptA-button" data-script="4">Consolidación</button>
+                <div class="botones">
+                    <button class="script-button scriptA-button" data-script="1">Mainstream</button>
+                    <button class="script-button scriptA-button" data-script="2">AXS</button>
+                    <button class="script-button scriptA-button" data-script="3">Premium</button>
+                    <button class="script-button scriptA-button" data-script="4">Consolidación</button>
 
-                <!-- Botones para Script B (inicialmente ocultos) -->
-                <button class="script-button scriptB-button hidden" data-script="5">Mainstream</button>
-                <button class="script-button scriptB-button hidden" data-script="6">AXS</button>
-                <button class="script-button scriptB-button hidden" data-script="7">Premium</button>
-                <button class="script-button scriptB-button hidden" data-script="8">Consolidación</button>
+                    <!-- Botones para Script B (inicialmente ocultos) -->
+                    <button class="script-button scriptB-button hidden" data-script="5">Mainstream</button>
+                    <button class="script-button scriptB-button hidden" data-script="6">AXS</button>
+                    <button class="script-button scriptB-button hidden" data-script="7">Premium</button>
+                    <button class="script-button scriptB-button hidden" data-script="8">Consolidación</button>
 
-                <!-- Botones para Script C (inicialmente ocultos) -->
-                <button class="script-button scriptC-button hidden" data-script="9">Consolidar MARA</button>
-            </div>
+                    <!-- Botones para Script C (inicialmente ocultos) -->
+                    <button class="script-button scriptC-button hidden" data-script="9">Consolidar MARA</button>
+                </div>
 
-            <span class="output-label">Salida del Script:</span>
-            <div id="outputConsole">
-                <!-- Aquí se mostrará la salida de los scripts -->
-                <p>Esperando la ejecución del script...</p>
-            </div>
-        </section>
+                
+            </section>
+            <section  class="cuadro center-section hidden" id="section-gs">
+                <div class="seccion-2">
+                    <h1>Gere Solped</h1>
+                </div>
+
+                <div class="botones gs-botones">
+                    <div class="gs-row">
+                        <button class="script-button" data-script="GS1">Descarga R3</button>
+                        <button class="script-button" data-script="GS2">Descarga INP</button>
+                    </div>
+                    <button class="script-button gs-bottom" data-script="GS3">Consolidación</button>
+
+                    
+                </div>
+
+               
+
+            
+        <!-- ...contenido de Gere Solped... -->
+            </section>
+            <section class="cuadro center-section hidden" id="section-dispo">
+        <!-- ...contenido de Otro... -->
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi nesciunt illo at qui veniam quas in impedit quibusdam, beatae aut! Atque molestias in expedita, distinctio animi est et soluta mollitia perspiciatis ipsa placeat consequatur, tempora sed voluptates accusamus dignissimos doloribus natus perferendis vitae, dolores laudantium. Vero commodi delectus accusantium dolore obcaecati officia temporibus, ut harum. Eum soluta labore libero quasi itaque odit odio hic animi nulla numquam corrupti tempora dolorem molestias error impedit molestiae facere cumque aliquam, eaque eos deleniti nam, assumenda aut. Magnam cum vitae expedita maiores voluptates, dignissimos asperiores debitis eligendi blanditiis culpa molestias eius tempora iusto sed?</p>
+            </section>
+
+
+
+
+
+        </div>
     </div>
-
     <script>
         // Obtener referencias a los elementos del DOM
         const reportSelect = document.getElementById('reportSelect');
@@ -58,6 +93,9 @@
         const scriptCButtons = document.querySelectorAll('.scriptC-button');
         // ¡Esta línea es crucial y ahora está en el lugar correcto!
         const outputConsole = document.getElementById('outputConsole');
+        //SIDEBAR
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const centerSections = document.querySelectorAll('.center-section');
 
         // Función para mostrar/ocultar botones
         function updateButtons() {
@@ -78,6 +116,25 @@
             }
         }
 
+
+        // Sidebar navigation para mostrar la sección correspondiente
+        sidebarLinks.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Quita la clase activa de todos
+                sidebarLinks.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Oculta todas las secciones centrales
+                centerSections.forEach(sec => sec.classList.add('hidden'));
+
+                // Muestra la sección correspondiente
+                const section = this.getAttribute('data-section');
+                document.getElementById('section-' + section).classList.remove('hidden');
+            });
+        });
+        // Opcional: activa la primera sección al cargar
+        document.querySelector('.sidebar-link[data-section="mos"]').classList.add('active');
+        document.getElementById('section-mos').classList.remove('hidden');
         // Función para añadir texto a la consola de salida
         // Esta función será llamada desde Python
         function appendOutput(message) {
@@ -98,6 +155,7 @@
         // Llamar a la función una vez al cargar la página para asegurar el estado inicial correcto
         window.onload = updateButtons;
 
+        
         // Manejo del click en los botones
         document.querySelectorAll('.script-button').forEach(button => {
           button.addEventListener('click', () => {
@@ -122,6 +180,8 @@
               }
           });
       });
+
+
     </script>
 </body>
 </html>

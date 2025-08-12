@@ -26,6 +26,55 @@ html, body {
   padding: 0;
   height: 100%;
 }
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: #1e293b;
+  color: #fff;
+  min-width: 140px;
+  max-width: 180px;
+  padding: 2rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.sidebar h2 {
+  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.sidebar-link {
+  background: none;
+  border: none;
+  color: #fff;
+  text-align: left;
+  width: 100%;
+  padding: 0.6rem 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 0.3rem;
+  transition: background 0.2s;
+}
+.sidebar-link:hover, .sidebar-link.active {
+  background: #334155;
+}
+
 
 .center-wrapper {
   padding:100px;
@@ -34,7 +83,8 @@ html, body {
   align-items: center;
   min-width: 600px;
   min-height: 100vh;   /* CAMBIO: usa 100vh para ocupar toda la altura de la ventana */
-  height: 100vh;       /* CAMBIO: fuerza altura completa */
+  height: 100vh;  
+  margin-bottom: 20px;     /* CAMBIO: fuerza altura completa */
 }
 
 
@@ -55,9 +105,13 @@ html, body {
   max-width: 900px;
   min-width: 0;
   min-height: 0;
-  /* padding: 0.7rem 0.5rem; */
+  padding: 0.7rem 0.5rem;
   border-radius: 10px;
   gap: 0.5rem;
+}
+
+.cuadro .center-section{
+  padding-bottom: 20px;
 }
 
 .botones {
@@ -95,6 +149,41 @@ html, body {
   background-color: #ff9900;
 }
 
+
+.gs-row {
+  display: flex;
+  justify-content: space-between; /* Espacio igual entre y en los extremos */
+  gap: 0.7rem;
+  width: 100%;
+}
+
+.gs-row .script-button {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 180px; /* Opcional: limita el ancho máximo */
+  width: auto;
+}
+
+.gs-bottom {
+  background: orange !important;
+  color: #fff !important;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 0;
+  font-size: 1.05rem;
+  width: 100%;
+  margin-top: 0.2rem;
+  box-shadow: 0 2px 8px #0001;
+  transition: background 0.2s;
+}
+
+
+.gs-bottom:hover {
+  background: white !important;
+  color: #ff9900 !important;
+}
+
 /* Regla para los 3 primeros botones */
 .script-button:where([data-script="1"]),
 .script-button:where([data-script="2"]),
@@ -103,6 +192,9 @@ html, body {
   flex-basis: 32%;
   margin-bottom: 10px; /* Separación entre filas */
 }
+
+
+
 .script-button:where([data-script="5"]),
 .script-button:where([data-script="6"]),
 .script-button:where([data-script="7"]) {
@@ -132,7 +224,7 @@ html, body {
 }
 
 
-.cuadro .seccion-1 h1{
+.cuadro h1{
     font-size: 30px;
 }
 
