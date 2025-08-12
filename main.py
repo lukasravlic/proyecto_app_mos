@@ -4,18 +4,26 @@ import os
 import sys
 
 #SCRIPT FORECAST
-import fc_consolidado_axs
-import fc_consolidado_mainstream
-import fc_consolidado_premium
-import union_fc
+import modulos.mos.forecast.fc_consolidado_axs as fc_consolidado_axs
+import modulos.mos.forecast.fc_consolidado_mainstream as fc_consolidado_mainstream
+import modulos.mos.forecast.fc_consolidado_premium as fc_consolidado_premium
+import modulos.mos.consolidaciones.union_fc as union_fc
 
 #SCRIPT VENTAS
-import ventas_mainstream
-import ventas_axs
-import ventas_premium
-import union_venta
+import modulos.mos.venta.ventas_mainstream as ventas_mainstream
+import modulos.mos.venta.ventas_axs as ventas_axs
+import modulos.mos.venta.ventas_premium as ventas_premium
+import modulos.mos.consolidaciones.union_venta as union_venta
 
-import consolidacion_mara
+#SCRIPTS GERE SOLPED
+import modulos.gere_solped.gere_solped_vmp as gere_solped_vmp
+import modulos.gere_solped.gere_solped_inp as gere_solped_inp
+import modulos.gere_solped.consolidado_gere_solped as consolidado_solped
+
+#SCRIPT MARA/MOS
+import modulos.mos.mara.consolidacion_mara as consolidacion_mara
+
+
 
 
 
@@ -55,6 +63,17 @@ class Api:
         elif script_id == '9':
             output = consolidacion_mara.main()
             return output
+        elif script_id == "GS1":
+            output = gere_solped_vmp.main()
+            return output
+        elif script_id == "GS2":
+            output = gere_solped_inp.main()
+            return output
+        elif script_id == "GS3":
+            output = consolidado_solped.main()
+            return output
+        
+
         else:
             print(f"Script con ID '{script_id}' no reconocido. No se ejecutó nada.")
             return f"Error: Script con ID '{script_id}' no reconocido."

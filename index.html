@@ -61,7 +61,7 @@
 
                 <div class="botones gs-botones">
                     <div class="gs-row">
-                        <button class="script-button" data-script="GS1">Descarga R3</button>
+                        <button class="script-button" data-script="GS1">Descarga VMP</button>
                         <button class="script-button" data-script="GS2">Descarga INP</button>
                     </div>
                     <button class="script-button gs-bottom" data-script="GS3">Consolidación</button>
@@ -137,17 +137,17 @@
         document.getElementById('section-mos').classList.remove('hidden');
         // Función para añadir texto a la consola de salida
         // Esta función será llamada desde Python
-        function appendOutput(message) {
-            const p = document.createElement('p');
-            p.textContent = message;
-            outputConsole.appendChild(p);
-            outputConsole.scrollTop = outputConsole.scrollHeight;
-        }
+        // function appendOutput(message) {
+        //     const p = document.createElement('p');
+        //     p.textContent = message;
+        //     outputConsole.appendChild(p);
+        //     outputConsole.scrollTop = outputConsole.scrollHeight;
+        // }
 
         // Función para limpiar la consola de salida
-        function clearOutput() {
-            outputConsole.innerHTML = '';
-        }
+        // function clearOutput() {
+        //     outputConsole.innerHTML = '';
+        // }
 
         // Añadir un event listener al select para detectar cambios
         reportSelect.addEventListener('change', updateButtons);
@@ -158,29 +158,19 @@
         
         // Manejo del click en los botones
         document.querySelectorAll('.script-button').forEach(button => {
-          button.addEventListener('click', () => {
-              const scriptId = button.getAttribute('data-script');
-              clearOutput(); // Limpia la consola antes de mostrar la nueva salida
-              let nombreScript = '';
-              if (scriptId === '1') nombreScript = 'fc_consolidado_mainstream.py';
-              else if (scriptId === '2') nombreScript = 'script2.py';
-              // ...agrega más si tienes otros scripts...
+            button.addEventListener('click', () => {
+            const scriptId = button.getAttribute('data-script');
+            let nombreScript = '';
+            if (scriptId === '1') nombreScript = 'fc_consolidado_mainstream.py';
+            else if (scriptId === '2') nombreScript = 'script2.py';
+            // ...agrega más si tienes otros scripts...
 
-              appendOutput(`Ejecutando ${nombreScript}...`);
-              if (typeof pywebview !== 'undefined' && pywebview.api && pywebview.api.execute_script) {
-                  pywebview.api.execute_script(scriptId).then(result => {
-                      // Muestra cada línea por separado
-                      result.split('\n').forEach(line => {
-                          if (line.trim() !== "") appendOutput(line);
-                      });
-                  });
-              } else {
-                  appendOutput(`Simulación: Ejecutando Script con ID: ${scriptId}`);
-                  appendOutput(`(Para ver la salida real, ejecuta con Pywebview)`);
-              }
-          });
-      });
-
+            if (typeof pywebview !== 'undefined' && pywebview.api && pywebview.api.execute_script) {
+                pywebview.api.execute_script(scriptId);
+            }
+            // No alerts, solo ejecuta el script
+            });
+        });
 
     </script>
 </body>
