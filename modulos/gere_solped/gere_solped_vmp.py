@@ -10,71 +10,68 @@ def main():
 
     try:
         # Initialize SAP GUI Scripting
-        SapGuiAuto = win32com.client.GetObject("SAPGUI")
-        application = SapGuiAuto.GetScriptingEngine
+        sap_gui_auto = win32com.client.GetObject("SAPGUI")
+        application = sap_gui_auto.GetScriptingEngine
+
+        # Establish connection and session
         connection = application.Children(0)
         session = connection.Children(0)
 
-        # Opcional: maximiza la ventana SAP
+        # Maximize the window
         session.findById("wnd[0]").maximize()
 
-        # Transacción ME5A
+        # Enter transaction code
         session.findById("wnd[0]/tbar[0]/okcd").text = "me5a"
         session.findById("wnd[0]").sendVKey(0)
 
-        # Layout ALV
-        session.findById("wnd[0]/usr/ctxtP_LSTUB").text = "alv"
-        session.findById("wnd[0]/usr/ctxtP_LSTUB").setFocus()
-        session.findById("wnd[0]/usr/ctxtP_LSTUB").caretPosition = 3
+        # Set plant code
+        session.findById("wnd[0]/usr/ctxtS_WERKS-LOW").text = "0201"
+        session.findById("wnd[0]/usr/ctxtS_WERKS-LOW").setFocus()
+        session.findById("wnd[0]/usr/ctxtS_WERKS-LOW").caretPosition = 4
         session.findById("wnd[0]").sendVKey(0)
 
-        # Selección de plantas 1305 a 1335
-        session.findById("wnd[0]/usr/btn%_S_WERKS_%_APP_%-VALU_PUSH").press()
-        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,0]").text = "1305"
-        session.findById("wnd[1]").sendVKey(0)
-        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,1]").text = "1335"
-        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,1]").setFocus()
-        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,1]").caretPosition = 4
-        session.findById("wnd[1]").sendVKey(0)
+        # Set document type
+        session.findById("wnd[0]/usr/ctxtS_BSART-LOW").setFocus()
+        session.findById("wnd[0]/usr/ctxtS_BSART-LOW").caretPosition = 0
+        session.findById("wnd[0]/usr/btn%_S_BSART_%_APP_%-VALU_PUSH").press()
+
+        # Enter multiple values
+        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,0]").text = "zsto"
+        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,1]").text = "zspt"
+        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,2]").text = "zvor"
+        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,3]").text = "zipl"
+        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,4]").text = "zatt"
+        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,4]").setFocus()
+        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,4]").caretPosition = 4
         session.findById("wnd[1]").sendVKey(8)
 
-        # Filtros S_BANPR
-        session.findById("wnd[0]/usr/ctxtS_BANPR-LOW").setFocus()
-        session.findById("wnd[0]/usr/ctxtS_BANPR-LOW").caretPosition = 0
-        session.findById("wnd[0]/usr/btn%_S_BANPR_%_APP_%-VALU_PUSH").press()
+        # Set status
+        session.findById("wnd[0]/usr/ctxtS_STATU-LOW").setFocus()
+        session.findById("wnd[0]/usr/ctxtS_STATU-LOW").caretPosition = 0
+        session.findById("wnd[0]/usr/btn%_S_STATU_%_APP_%-VALU_PUSH").press()
         session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,0]").text = "a"
         session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,1]").text = "n"
-        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,2]").text = "b"
-        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,2]").setFocus()
-        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,2]").caretPosition = 1
+        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,1]").setFocus()
+        session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE/ctxtRSCSEL_255-SLOW_I[1,1]").caretPosition = 1
         session.findById("wnd[1]").sendVKey(8)
 
-        # Ejecutar reporte
+        # Execute
         session.findById("wnd[0]").sendVKey(8)
 
-        # Confirmar layout ALV (otra vez)
-        session.findById("wnd[0]/usr/ctxtP_LSTUB").text = "Alv"
-        session.findById("wnd[0]/usr/ctxtP_LSTUB").setFocus()
-        session.findById("wnd[0]/usr/ctxtP_LSTUB").caretPosition = 3
-        session.findById("wnd[0]").sendVKey(0)
-        session.findById("wnd[0]").sendVKey(8)
-
-        # Exportar reporte a Excel
-        session.findById("wnd[0]/tbar[1]/btn[33]").press()  # Lista -> Exportar
-        session.findById("wnd[1]/usr/ssubD0500_SUBSCREEN:SAPLSLVC_DIALOG:0501/cntlG51_CONTAINER/shellcont/shell").currentCellColumn = "TEXT"
-        session.findById("wnd[1]/usr/ssubD0500_SUBSCREEN:SAPLSLVC_DIALOG:0501/cntlG51_CONTAINER/shellcont/shell").firstVisibleRow = 0
+        # Export to Excel
+        session.findById("wnd[0]/tbar[1]/btn[33]").press()
+        session.findById("wnd[1]/usr/ssubD0500_SUBSCREEN:SAPLSLVC_DIALOG:0501/cntlG51_CONTAINER/shellcont/shell").setCurrentCell(0, "TEXT")
+        session.findById("wnd[1]/usr/ssubD0500_SUBSCREEN:SAPLSLVC_DIALOG:0501/cntlG51_CONTAINER/shellcont/shell").firstVisibleRow = 30
         session.findById("wnd[1]/usr/ssubD0500_SUBSCREEN:SAPLSLVC_DIALOG:0501/cntlG51_CONTAINER/shellcont/shell").selectedRows = "0"
         session.findById("wnd[1]/usr/ssubD0500_SUBSCREEN:SAPLSLVC_DIALOG:0501/cntlG51_CONTAINER/shellcont/shell").clickCurrentCell()
-
-        # Confirmar exportar a archivo local
         session.findById("wnd[0]/tbar[1]/btn[43]").press()
         session.findById("wnd[1]/tbar[0]/btn[0]").press()
         session.findById("wnd[1]/usr/ctxtDY_PATH").text = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Descargas Automaticas/Gerenciamiento Solped"
-        session.findById("wnd[1]/usr/ctxtDY_PATH").setFocus()
-        session.findById("wnd[1]/usr/ctxtDY_PATH").caretPosition = 0
+        session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = "ME5A_R3.XLSX"
+        session.findById("wnd[1]/usr/ctxtDY_FILENAME").caretPosition = 8
         session.findById("wnd[1]/tbar[0]/btn[11]").press()
 
-        # Cerrar ventanas
+        # Close the session
         session.findById("wnd[0]").sendVKey(3)
         session.findById("wnd[0]").sendVKey(3)
 
