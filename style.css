@@ -36,12 +36,17 @@ html, body {
   color: #fff;
   min-width: 140px;
   max-width: 180px;
+  height: 100vh;           /* Ocupa todo el alto de la ventana */
+  position: fixed;         /* Fija el sidebar en la pantalla */
+  left: 0;
+  top: 0;
   padding: 2rem 1rem 1rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
+  z-index: 10;
 }
 
 .sidebar h2 {
@@ -75,19 +80,26 @@ html, body {
   background: #334155;
 }
 
-
-.center-wrapper {
-  padding:100px;
+.layout {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 600px;
-  min-height: 100vh;   /* CAMBIO: usa 100vh para ocupar toda la altura de la ventana */
-  height: 100vh;  
-  margin-bottom: 20px;     /* CAMBIO: fuerza altura completa */
+  min-height: 100vh;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center;     /* Centra el contenido verticalmente */
 }
 
+.center-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  gap: 2.5rem;
+}
 
+.hidden { 
+  display: none !important
+}
     /* margin: 50px auto;
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.8);
@@ -95,23 +107,73 @@ html, body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center; */
 
+.cuadro h1 {
+  font-size: 2.1rem;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.cuadro form {
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.botones {
+  width: 100%;
+  justify-content: space-evenly;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.botones button {
+  padding: 0.7rem 1.5rem;
+  font-size: 1.08rem;
+  border-radius: 8px;
+}
+
+
 .cuadro {
   background-color: var(--background-color);
-  border-radius: 10px;
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 98vw;
+  width: 100%;
   max-width: 900px;
-  min-width: 0;
-  min-height: 0;
-  padding: 0.7rem 0.5rem;
-  border-radius: 10px;
-  gap: 0.5rem;
+  min-width: 320px;
+  min-height: 400px;
+  padding: 2.5rem 2rem;
+  gap: 2rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
 
 .cuadro .center-section{
   padding-bottom: 20px;
+}
+
+/* Botones de Disponibilidad Futura (DF) */
+.section-dispo .botones .script-button {
+  min-width: 110px;      /* Ajusta este valor según el botón más ancho de otras secciones */
+  width: 400px;           /* Hace que ocupen todo el ancho disponible del contenedor */
+  max-width: 400px;      /* Opcional: limita el ancho máximo */
+  margin: 0 auto 0.7rem auto;
+  display: block;
+  font-size: 1.05rem;
+  background-color: #004E89;
+  flex-basis: 100%;
+}
+
+.section-dispo .botones .script-button:hover{
+  color:#004E89;
+  background-color: #fff;
+}
+
+.section-dispo .scriptdfOem-button {
+  flex-basis: 100%;
+  width: 100%;
+  max-width: none;
+  display: block;
 }
 
 .botones {
@@ -150,40 +212,61 @@ html, body {
 }
 
 
+.gs-botones {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
 .gs-row {
   display: flex;
-  justify-content: space-between; /* Espacio igual entre y en los extremos */
-  gap: 0.7rem;
+  justify-content: center;
+  gap: 2rem;
   width: 100%;
 }
 
 .gs-row .script-button {
   flex: 1 1 0;
-  min-width: 0;
-  max-width: 180px; /* Opcional: limita el ancho máximo */
-  width: auto;
+  min-width: 160px;
+  max-width: 260px;
+  font-size: 1.08rem;
+  padding: 0.7rem 0;
+  background-color: #004E89;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.gs-row .script-button:hover {
+  background-color: #fff;
+  color: #004E89;
 }
 
 .gs-bottom {
-  background: orange !important;
+  background: #ff9900 !important;
   color: #fff !important;
   font-weight: bold;
   border: none;
   border-radius: 8px;
   padding: 0.7rem 0;
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   width: 100%;
-  margin-top: 0.2rem;
+  max-width: 560px;
+  margin: 0 auto;
   box-shadow: 0 2px 8px #0001;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
+  display: block;
 }
-
 
 .gs-bottom:hover {
-  background: white !important;
+  background: #fff !important;
   color: #ff9900 !important;
 }
-
 /* Regla para los 3 primeros botones */
 .script-button:where([data-script="1"]),
 .script-button:where([data-script="2"]),
@@ -228,7 +311,7 @@ html, body {
     font-size: 30px;
 }
 
-.cuadro .seccion-1 form{
+.cuadro form{
     font-size: 18px;
     display: flex;
     flex-direction: column;
@@ -236,12 +319,12 @@ html, body {
     align-items: center;
 }
 
-.cuadro .seccion-1 form{
+.cuadro .seccion-1 .seccion-3 form{
 
   gap:10px;
 }
 
-.cuadro .seccion-1 form select{
+.cuadro  form select{
     width: 200px;
     height: 25px;
     text-align: center;

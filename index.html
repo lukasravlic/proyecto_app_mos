@@ -18,7 +18,7 @@
                 <ul>
                     <li><button class="sidebar-link" data-section="mos">MOS</button></li>
                     <li><button class="sidebar-link" data-section="gs">Gere Solped</button></li>
-                    <li><button class="sidebar-link" data-section="dispo">Otro</button></li>
+                    <li><button class="sidebar-link" data-section="dispo">Disponibilidad Futura</button></li>
                     <!-- Agrega más secciones si lo deseas -->
                 </ul>
         </nav>
@@ -68,15 +68,37 @@
 
                     
                 </div>
-
+            
+            </section>
                
 
             
         <!-- ...contenido de Gere Solped... -->
-            </section>
-            <section class="cuadro center-section hidden" id="section-dispo">
-        <!-- ...contenido de Otro... -->
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi nesciunt illo at qui veniam quas in impedit quibusdam, beatae aut! Atque molestias in expedita, distinctio animi est et soluta mollitia perspiciatis ipsa placeat consequatur, tempora sed voluptates accusamus dignissimos doloribus natus perferendis vitae, dolores laudantium. Vero commodi delectus accusantium dolore obcaecati officia temporibus, ut harum. Eum soluta labore libero quasi itaque odit odio hic animi nulla numquam corrupti tempora dolorem molestias error impedit molestiae facere cumque aliquam, eaque eos deleniti nam, assumenda aut. Magnam cum vitae expedita maiores voluptates, dignissimos asperiores debitis eligendi blanditiis culpa molestias eius tempora iusto sed?</p>
+            <section class="cuadro center-section section-dispo hidden" id="section-dispo">
+                <div class="seccion-3 titulo">
+                    <h1>Disponibilidad Futura</h1>
+                    <form action="" class="form">
+                        <label for="reportSelect">Selecciona Legacy:</label>
+                        <select id="reportSelectDf" class="dropdown">
+                            <option value="scriptdfOem">OEM</option>
+                            <option value="scriptdfAxs">AXS</option>
+                            <option value="scriptdfInp">Inchcape</option>
+                            <option value="scriptdfDitec">Ditec</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="botones">
+                    <button class="script-button scriptdfOem-button" data-script="dfOem">DF OEM</button>
+                    <button class="script-button scriptdfAxs-button hidden" data-script="dfAxs">DF AXS</button>
+                    <button class="script-button scriptdfInp-button hidden" data-script="dfInp">DF Inchcape</button>
+                    <button class="script-button scriptdfDitec-button hidden" data-script="dfDitec">DF Ditec</button>
+
+                    <!-- Botones para Script B (inicialmente ocultos) -->
+  
+                </div>
+
+                
             </section>
 
 
@@ -96,6 +118,44 @@
         //SIDEBAR
         const sidebarLinks = document.querySelectorAll('.sidebar-link');
         const centerSections = document.querySelectorAll('.center-section');
+
+        const reportSelectDf = document.getElementById('reportSelectDf');
+        const scriptdfOemButtons = document.querySelectorAll('.scriptdfOem-button');
+        const scriptdfAxsButtons = document.querySelectorAll('.scriptdfAxs-button');
+        const scriptdfInpButtons = document.querySelectorAll('.scriptdfInp-button');
+        const scriptdfDitecButtons = document.querySelectorAll('.scriptdfDitec-button');
+
+// Función para mostrar/ocultar botones en Disponibilidad Futura
+        function updateDfButtons() {
+            const selectedValue = reportSelectDf.value;
+
+            // Oculta todos los botones primero
+            scriptdfOemButtons.forEach(btn => btn.classList.add('hidden'));
+            scriptdfAxsButtons.forEach(btn => btn.classList.add('hidden'));
+            scriptdfInpButtons.forEach(btn => btn.classList.add('hidden'));
+            scriptdfDitecButtons.forEach(btn => btn.classList.add('hidden'));
+
+            // Muestra solo los botones correspondientes
+            if (selectedValue === 'scriptdfOem') {
+                scriptdfOemButtons.forEach(btn => btn.classList.remove('hidden'));
+            } else if (selectedValue === 'scriptdfAxs') {
+                scriptdfAxsButtons.forEach(btn => btn.classList.remove('hidden'));
+            } else if (selectedValue === 'scriptdfInp') {
+                scriptdfInpButtons.forEach(btn => btn.classList.remove('hidden'));
+            } else if (selectedValue === 'scriptdfDitec') {
+                scriptdfDitecButtons.forEach(btn => btn.classList.remove('hidden'));
+            }
+        }
+
+        // Añadir event listener al select de Disponibilidad Futura
+            if (reportSelectDf) {
+                reportSelectDf.addEventListener('change', updateDfButtons);
+                window.addEventListener('DOMContentLoaded', updateDfButtons);
+            }
+
+
+
+
 
         // Función para mostrar/ocultar botones
         function updateButtons() {
