@@ -1,0 +1,12 @@
+Cambio a hacer en Gere Solped Consolidadado
+
+SLA ------>
+Formula DFSK y SUBARU
+DFSK: sumar 8 dias a la fecha de Solped
+SUBARU: sumar 8 dias a la fecha de Solped
+
+dejar un solo KPI
+
+
+
+

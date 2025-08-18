@@ -23,6 +23,10 @@ import modulos.gere_solped.consolidado_gere_solped as consolidado_solped
 #SCRIPT MARA/MOS
 import modulos.mos.mara.consolidacion_mara as consolidacion_mara
 
+#SCRIPT DISPONIBILIDAD FUTURA
+import modulos.dispo_futura.dispo_futura_oem as dispo_futura_oem
+
+
 
 
 
@@ -71,6 +75,9 @@ class Api:
             return output
         elif script_id == "GS3":
             output = consolidado_solped.main()
+            return output
+        elif script_id == "dfOem":
+            output = dispo_futura_oem.main()
             return output
         
 
