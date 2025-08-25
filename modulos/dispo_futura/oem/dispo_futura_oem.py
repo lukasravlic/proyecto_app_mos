@@ -1225,7 +1225,7 @@ def main():    # %%
     df_base_aux
 
     # %%
-    #df_base_aux.to_excel(f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/OEM/Bases Python/base_final.xlsx", index=False)
+    df_base_aux.to_excel(f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/OEM/Bases Python/base_final.xlsx", index=False)
 
     # %%
     df_base_aux
@@ -1294,75 +1294,12 @@ def main():    # %%
 
     # %%
     #df_transformado.to_csv(f'C:/Users/lravlic/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/OEM/Bases Python/Base_PBI.csv')
-    #df_transformado.to_csv(f'C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/OEM/Bases Python/base_pbi.csv')
-
-    # %%
-    df_mara.dropna(subset=['Material_R3'], inplace=True)
-
-    # Assuming 'df_mara' is your DataFrame
-
-
-    # %%
-    # Eliminar duplicados basados en la columna 'Material_R3'
-    df_mara.drop_duplicates(subset=['Material_R3'], inplace=True)
-
-    # %%
-    df_mara.dtypes
-
-    # %%
-    #df_mara.to_csv(f'C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/OEM/Bases Python/mara_tratada.csv')
+    df_transformado.to_csv(f'C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/OEM/Bases Python/base_pbi.csv')
 
     # %%
 
 
     # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-    # %%
-
-
-
+    print("🎊Proceso completo!🎊 Archivos guardados en Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/OEM/Bases Python")
 if __name__ == '__main__':
     main()

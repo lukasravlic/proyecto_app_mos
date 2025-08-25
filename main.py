@@ -24,7 +24,7 @@ import modulos.gere_solped.consolidado_gere_solped as consolidado_solped
 import modulos.mos.mara.consolidacion_mara as consolidacion_mara
 
 #SCRIPT DISPONIBILIDAD FUTURA
-import modulos.dispo_futura.dispo_futura_oem as dispo_futura_oem
+import modulos.dispo_futura.oem.dispo_futura_oem as dispo_futura_oem
 
 
 
