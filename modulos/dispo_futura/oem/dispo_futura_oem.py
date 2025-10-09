@@ -174,7 +174,7 @@ def main():    # %%
                 if 'OEM' in j:
                     archivo = ruta_fc + '/' + i + '/' + j
                     print(f'📂Achivo de FC usado:\n{j}')
-                    df_fc = pd.read_excel(archivo,  sheet_name='MOS Forecast Data', header=3)
+                    df_fc = pd.read_excel(archivo,  sheet_name='MOS Forecast Data', header=3, dtype={'Segmentación Inchcape':'str'})
     #df_fc = pd.read_excel("C:/Users/lravlic/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda/Forecast Inbound/2024/2024-04 Abril/04.2024 S&OP Demanda Sin Restricciones OEM_Inbound.xlsx", sheet_name='Inbound', header=4)
 
 
@@ -464,7 +464,7 @@ def main():    # %%
     df_base = df_base.merge(nuevo_df_fc_prom, left_on='Cod_Actual_1',right_on='Cod_Actual_1', how='left')
 
     # %%
-    columnas_fc = [col for col in df_base.columns if 'FC' in col][:3]
+    columnas_fc = [col for col in df_base.columns if 'FC' in col][:6]
 
     # Crear la nueva columna 'fc promedio' que contiene el promedio de las primeras tres columnas
     df_base['fc promedio'] = df_base[columnas_fc].mean(axis=1)*4.33

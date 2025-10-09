@@ -11,7 +11,7 @@ def main():
 
     # %%
     año = str(hoy().year)
-    mes = str((hoy()-datetime.timedelta(days=30)).month).zfill(2)
+    mes = str(hoy().month).zfill(2)
 
     # %%
     dict_mes = {

@@ -2,7 +2,8 @@ def main():
     import pandas as pd
     import os
     import datetime
-
+    import getpass
+    usuario = getpass.getuser()
 
     # %%
     hoy = datetime.datetime.today
@@ -38,7 +39,7 @@ def main():
     fecha_3 = mes_3 + '-' + str(hoy().year)[2:]
 
     # %%
-    carpeta_venta_premium = f"C:/Users/lravlic/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/S&OP/{año}-{mes}/OEM Premium/"
+    carpeta_venta_premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/S&OP/{año}-{mes}/OEM Premium/"
     ruta_premium = os.listdir(carpeta_venta_premium)
     print(ruta_premium)
 
@@ -73,7 +74,7 @@ def main():
     mes_n1
 
     # %%
-    premium = f"C:/Users/lravlic/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/Forecast Colaborado/{año}-{mes_n1}"
+    premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/Forecast Colaborado/{año}-{mes_n1}"
     ruta_premium = os.listdir(premium)
 
     for i in ruta_premium:
@@ -237,8 +238,8 @@ def main():
 
 
     # %%
-    import getpass
-    usuario = getpass.getuser()
+    
+    
 
     # %%
     folder_path = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Gerenciamiento MOS/Panel PBI/bases mensuales/venta/{año}-{mes}"
