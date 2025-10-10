@@ -93,11 +93,11 @@ def main():# %%
 
 
     # %%
-    fc_cols_premium = fc_cols_premium[:5]
+    fc_cols_premium = fc_cols_premium[:8]
 
     # %%
 
-    fc_cols_prom_premium = fc_cols_premium[:5]
+    fc_cols_prom_premium = fc_cols_premium[:8]
 
     # %%
     df_fc_prom_premium= fc_premium[fc_cols_prom_premium].copy()
