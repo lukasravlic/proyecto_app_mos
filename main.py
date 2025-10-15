@@ -25,6 +25,9 @@ import modulos.mos.mara.consolidacion_mara as consolidacion_mara
 
 #SCRIPT DISPONIBILIDAD FUTURA
 import modulos.dispo_futura.oem.dispo_futura_oem as dispo_futura_oem
+import modulos.dispo_futura.axs.dispo_futura_axs as dispo_futura_axs
+
+
 
 
 
@@ -78,6 +81,9 @@ class Api:
             return output
         elif script_id == "dfOem":
             output = dispo_futura_oem.main()
+            return output
+        elif script_id == "dfAxs":
+            output = dispo_futura_axs.main()
             return output
         
 

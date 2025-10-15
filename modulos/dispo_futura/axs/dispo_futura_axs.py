@@ -1,16 +1,11 @@
 def main(): 
+    # %%
+    #IMPORTACION DE LIBRERIAS
     import pandas as pd
     import datetime
     import os
     import numpy as np
     import getpass
-
-    import warnings
-    from pandas.errors import PerformanceWarning
-
-    warnings.simplefilter(action="ignore", category=PerformanceWarning)
-    warnings.simplefilter(action="ignore", category=pd.errors.SettingWithCopyWarning)
-    warnings.simplefilter(action="ignore", category=pd.errors.DtypeWarning)
 
     #hoy = datetime.datetime.today()
     #hoy = datetime.date(2024, 10,14)
@@ -21,23 +16,6 @@ def main():
     # %%
 
 
-    #IMPORTACION DE LIBRERIAS
-    import pandas as pd
-    import datetime
-    import os
-    import numpy as np
-    import getpass
-
-    import warnings
-    warnings.simplefilter(action="ignore", category=pd.errors.SettingWithCopyWarning)
-    warnings.simplefilter(action="ignore", category=pd.errors.DtypeWarning)
-    # hoy = datetime.datetime.today() dejar esta linea cuadno se haga el calculo real
-    #hoy = datetime.datetime.today()
-    #hoy = datetime.date(2024,10,17)
-    #LECTURA DE DFS
-    from pathlib import Path
-    usuario = getpass.getuser()
-
     # %%
     import tkinter as tk
     from tkinter import ttk
@@ -45,18 +23,18 @@ def main():
     import datetime
 
     # Variable global para almacenar la fecha seleccionada
-    # fecha_seleccionada = None
+    
 
     # Función que captura la fecha seleccionada y cierra la ventana
     def seleccionar_y_continuar():
         global fecha_seleccionada
-
+        
         # Obtener la fecha seleccionada como un objeto datetime.date
         fecha_input = calendario.get_date()
 
         # Convertir a datetime.date
         fecha_seleccionada = fecha_input
-
+        
         # Cerrar la ventana
         ventana.destroy()
 
@@ -84,7 +62,7 @@ def main():
     print(f"Fecha seleccionada: {fecha_seleccionada}")
 
     # Aquí puedes continuar con el resto del código
-    # Ejemplo:
+    # Ejemplo: 
     # print(f"Usando la fecha seleccionada: {fecha_seleccionada}")
 
 
@@ -127,7 +105,7 @@ def main():
     # %%
     ruta_sp = ruta_repo.joinpath('SP.csv')
 
-    df_sp = pd.read_csv(ruta_sp , dtype = dtypes)
+    df_sp = pd.read_csv(ruta_sp , dtype = dtypes, low_memory=False)
 
     # %%
     columnas= ['Nro_pieza_fabricante_1',	'Cod_Actual_1']
@@ -146,7 +124,7 @@ def main():
     # Leer el archivo CSV en un DataFrame
     df_mara = pd.read_csv(ruta_mara, dtype={'Part_number':'str'})
 
-
+    print('Ruta Mara: ' + '\n' + str(ruta_mara))
 
     # %%
 
@@ -192,7 +170,7 @@ def main():
         
         # Leer el archivo seleccionado
         df_stock = pd.read_excel(archivo_tubo, dtype=dtypes, sheet_name='Sheet1')
-        print("📂Archivo de Stock cargado correctamente.")
+        print("Archivo de Stock cargado correctamente.")
     else:
         print("No se seleccionó ningún archivo de Stock.")
 
@@ -208,7 +186,7 @@ def main():
         
         # Leer el archivo seleccionado
         df_tr = pd.read_excel(archivo_tr, sheet_name='Sheet1')
-        print("📂Archivo de TR cargado correctamente.")
+        print("Archivo de TR cargado correctamente.")
     else:
         print("No se seleccionó ningún archivo de TR.")
 
@@ -282,41 +260,22 @@ def main():
             if str(anio) in i and mes_formateado in i:
                 archivos_fc = os.listdir(f"{ruta_fc}/{i}")
                 for j in archivos_fc:
-                    
+                    print(j)
                     if 'AXS' in j:
-                        print(f'📂 Archivo de forecast usado: {j}')
                         archivo = f"{ruta_fc}/{i}/{j}"
-                        df_fc = pd.read_excel(archivo, sheet_name='Inbound SP', header=3)
-                        # Procesar DataFrame según sea necesario
+                        df_fc = pd.read_excel(archivo, sheet_name='MOS Forecast Data', header=3)
     except FileNotFoundError:
-        print(f"La ruta {ruta_fc} no existe. Verifica el nombre del usuario o la estructura del directorio.")
-    # %%
-
-    # %%
+        print(f"La ruta {ruta_fc} no existe. Verifica el nombre del usuario o la e")
     df_fc_final = ['Último Eslabón']
     for item in df_fc.columns.to_list():
         if "FC" in item:
             df_fc_final.append(item)
     df_fc_final = df_fc_final[:13]
-
-
-    # %%
-    df_fc_final
-
-    # %%
     df_fc_prom = df_fc[df_fc_final]
 
-    # %%
-    df_fc_prom
-
-    # %%
-
-
-    # %%
     df_fc_prom = df_fc_prom.merge(cadena_de_remplazo, left_on='Último Eslabón', right_on='Nro_pieza_fabricante_1', how ='left')
     df_fc_prom['Cod_Actual_1'] = df_fc_prom['Cod_Actual_1'].fillna(df_fc_prom['Último Eslabón'])
-    df_fc_prom
-    df_fc_prom.columns.to_list()
+
     df_fc_prom.drop(columns=['Último Eslabón','Nro_pieza_fabricante_1'], inplace=True)
     columnas_prom = [col for col in df_fc_prom.columns if 'Suma' in col]
     df_fc_prom
@@ -331,20 +290,23 @@ def main():
     df_fc_prom.columns = [col[:-1] if col.startswith('FC') else col for col in df_fc_prom.columns]
 
 
-    # %%
     df_fc_prom.columns
 
     # %%
     # Filter columns that start with 'FC'
     columns_to_process = [col for col in df_fc_prom.columns if col.startswith('FC')]
+    df_fc_prom
+    columns_to_process
+    df_fc_prom[columns_to_process[0]]
+    df_fc_prom[columns_to_process[1:7]]
 
-    df_fc_prom['Promedio FC'] = df_fc_prom[columns_to_process[1:4]].mean(axis=1)
+    df_fc_prom['Promedio FC'] = df_fc_prom[columns_to_process[1:7]].mean(axis=1)
     df_fc_prom['Promedio FC Piso'] = df_fc_prom[columns_to_process[0:3]].mean(axis=1)
 
     #Multiply the first column by 0.33 and add the result to each of the next three columns
     multiplied_column = df_fc_prom[columns_to_process[0]] * 0.333
     for col in columns_to_process[1:4]:
-        df_fc_prom[col] += multiplied_column
+        df_fc_prom[col] = df_fc_prom[col] + multiplied_column
         #print(col)
 
 
@@ -366,7 +328,8 @@ def main():
 
     # %%
     df_fc_final_venta = ['Último Eslabón']
-    for item in [col for col in df_fc.columns if 'Suma' in col and not 'Vigencia' in col][:-12]:
+    for item in [col for col in df_fc.columns if 'Vta R' in col and not 'Vigencia' in col][:6]:
+        print(item)
         df_fc_final_venta.append(item)
 
 
@@ -380,15 +343,14 @@ def main():
     df_fc_prom_venta = df_fc_prom_venta.merge(cadena_de_remplazo, left_on='Último Eslabón', right_on='Nro_pieza_fabricante_1', how ='left')
     df_fc_prom_venta['Cod_Actual_1'] = df_fc_prom_venta['Cod_Actual_1'].fillna(df_fc_prom_venta['Último Eslabón'])
     df_fc_prom_venta.drop(columns=['Último Eslabón','Nro_pieza_fabricante_1'], inplace=True)
-    columnas_prom_venta = [col for col in df_fc_prom_venta.columns if 'Suma' in col]
-    df_fc_prom_venta['Promedio Venta'] = df_fc_prom_venta[columnas_prom_venta[-12:]].mean(axis=1)
+    columnas_prom_venta = [col for col in df_fc_prom_venta.columns if 'Vta R' in col][:6]
+    df_fc_prom_venta['Promedio Venta'] = df_fc_prom_venta[columnas_prom_venta].mean(axis=1)
     # columnas_seleccionadas = ['Cod_Actual_1'] + [col for col in df_fc_prom.columns if 'FC' in col and 'Prom' not in col][:10]
     # nuevo_df_fc_prom = df_fc_prom[columnas_seleccionadas].copy()
 
 
     df_fc_prom_venta = df_fc_prom_venta[['Cod_Actual_1', 'Promedio Venta']]
     df_fc_prom_venta = df_fc_prom_venta.groupby(['Cod_Actual_1'])['Promedio Venta'].sum().reset_index()
-
 
     # %%
     df_stock['Total'] = df_stock['Libre utilización'] + df_stock['Trans./Trasl.'] + df_stock['En control calidad']
@@ -578,7 +540,7 @@ def main():
     #current_date = datetime.date(2024,8,28)
     #current_date = datetime.datetime.today()
     current_date = hoy
-
+    print(current_date.isocalendar())
     # Crear las columnas en base a las próximas 39 semanas en la base de datos 'b'
     # Define the custom ISO week function again
     def get_iso_week(date_obj):
@@ -622,6 +584,7 @@ def main():
         month_name = nombrar_mes(week_start_date.month)
 
         column_name = f"{year}-{month_name}-{week_number_str}"
+        print(column_name)
 
         df_base[column_name] = 0 # Inicializar todas las columnas con 0
 
@@ -765,7 +728,7 @@ def main():
         calculo_columna = np.where((df_base[last_column_name] + df_base[columna_tr] - df_base[columna_fc]) < 0, 0, df_base[last_column_name] + df_base[columna_tr] - df_base[columna_fc])
         
         df_base[column_name] = calculo_columna
-
+        print(column_name)
 
 
 
@@ -944,7 +907,7 @@ def main():
 
     # %%
     df_base_aux.drop_duplicates(subset='Cod_Actual_1',inplace=True)
-    #df_base_aux.to_excel(f'C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/AXS/bases_python/Base_Final.xlsx')
+    df_base_aux.to_excel(f'C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/AXS/bases_python/Base_Final.xlsx')
 
     # %%
     sub_df = df_base_aux.filter(regex='^Cod_Actual_1$|^NNSS_P - ')
@@ -1026,7 +989,11 @@ def main():
 
     # %%
     df_transformado = df_transformado[reducir_cols]
-    #df_transformado.to_csv(f'C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/AXS/bases_python/base_pbi.csv')
+
+    # %%
+    df_transformado.to_csv(f'C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/AXS/bases_python/base_pbi.csv')
+    print(f"🎊Proceso completo, archivo guardado en --> Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Disponibilidad Futura/2024/AXS")
+
 
 if __name__ == '__main__':
     main()
