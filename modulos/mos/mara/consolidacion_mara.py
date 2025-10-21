@@ -32,7 +32,7 @@ def main():
 
     # %%
 
-    mara_inchcape['Marca'] = mara_inchcape['Sector MU'].apply(lambda x: 'Subaru' if x == 1335 else 'DFSK' if x == 1305 else 'Geely' if x == 1344 else 'Unknown')
+    mara_inchcape['Marca'] = mara_inchcape['Sector MU'].apply(lambda x: 'Subaru' if x == 1335 else 'DFSK' if x == 1305 else 'Geely' if x == 1344 else 'Harley Davidson' if x==3261 else 'Unknown')
 
     # %%
     mara_bmw = pd.read_excel(f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Gerenciamiento MOS/Data Homologación/MARA/1. MARA_BMW.xlsx",dtype={'Sector MU':'str'} )
@@ -67,6 +67,10 @@ def main():
     mara_final = pd.concat([mara_derco,mara_inchcape,mara_bmw,mara_ditec])
 
     # %%
+    import numpy as np
+    cond = [mara_final['Marca'] == 'Harley Davidson']
+    sel = ['OEM DITEC']
+    mara_final['Tipo'] = np.select(cond, sel, mara_final['Tipo'])
 
     brecha = pd.read_excel(f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Gerenciamiento MOS/Data Homologación/MARA/Código Brecha actualizados.xlsx")
     brecha.rename(columns={
