@@ -192,7 +192,7 @@ def main():# %%
     # Assign values to a new column based on multiple conditions
     df_consolidado['Tipo'] = np.select(
         [
-            df_consolidado['Marca'].isin(['Nacional WBM','Nacional Ditec', 'Mini', 'BMW Motorrad', 'Jaguar', 'Land Rover', 'BMW', 'Porsche', 'Volvo']),
+            df_consolidado['Marca'].isin(['Nacional WBM','Nacional Ditec', 'Mini', 'BMW Motorrad', 'Jaguar', 'Land Rover', 'BMW', 'Porsche', 'Volvo', 'Harley Davidson']),
             df_consolidado['Marca'].isin(['Subaru', 'Geely', 'DFSK'])
         ],
         [
