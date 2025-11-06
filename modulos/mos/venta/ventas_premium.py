@@ -146,50 +146,54 @@ def main():
     df_consolidado = pd.DataFrame()  # Definir df_consolidado globalmente
     dfs_venta = []
     def seleccionar_fecha():
-        def obtener_fecha():
-            global df_consolidado , df_consolidado_venta # Declarar que usamos la variable global
+        import tkinter as tk
+        from tkinter import ttk
+        from tkcalendar import Calendar
+        from datetime import datetime, timedelta
+        import pandas as pd
+        dfs = []
+        df_consolidado_local = pd.DataFrame()
 
-            # Convertimos la fecha seleccionada a un objeto datetime
-            fecha_seleccionada = datetime.strptime(cal.get_date(), '%m/%d/%y')
+        def obtener_fechas():
+            nonlocal dfs, df_consolidado_local
+
+            fecha_inicio = datetime.strptime(cal_inicio.get_date(), '%m/%d/%y')
+            fecha_fin = datetime.strptime(cal_fin.get_date(), '%m/%d/%y')
             ventana_cal.destroy()  # Cierra la ventana del calendario
 
-            # Obtenemos el año y mes de la fecha seleccionada
-            mes_inicial = fecha_seleccionada.month
-
-            # Iniciamos el loop con la fecha seleccionada y continuamos hasta que cambie de mes
-            fecha_actual = fecha_seleccionada
-            while fecha_actual.month == mes_inicial:
-                # Crear una copia completa de df_fc_prom y agregar la fecha
-                df2 = df_prom_venta_consolidado.copy()
-                #df = df_fc_prom_consolidado.copy()
-                #df['Fecha'] = fecha_actual  # Asigna la misma fecha a todas las filas de este DataFrame
-                df2['Fecha'] = fecha_actual
-                # Agregar el DataFrame al listado de dfs
-                #dfs.append(df)
-                dfs_venta.append(df2)
-
-                # Incrementar la fecha en 7 días
+            fecha_actual = fecha_inicio
+            while fecha_actual <= fecha_fin:
+                df = df_prom_venta_premium.copy()  # Asegúrate de que df_fc_prom esté definido antes
+                df['Fecha'] = fecha_actual
+                dfs.append(df)
                 fecha_actual += timedelta(days=7)
 
-            # Concatenar todos los DataFrames de dfs en un único DataFrame
-            #df_consolidado = pd.concat(dfs, ignore_index=True)
-            df_consolidado_venta = pd.concat(dfs_venta, ignore_index=True)
+            if dfs:
+                df_consolidado_local = pd.concat(dfs, ignore_index=True)
+            else:
+                df_consolidado_local = pd.DataFrame()
 
-
-        # Crear ventana de selección de fecha
+        # Crear ventana principal
         ventana_cal = tk.Tk()
-        ventana_cal.title("Seleccionar Fecha de Inicio")
+        ventana_cal.title("Seleccionar Rango de Fechas")
 
-        cal = Calendar(ventana_cal, selectmode='day')
-        cal.pack(pady=20)
+        # Fecha de inicio
+        tk.Label(ventana_cal, text="Fecha de Inicio").pack()
+        cal_inicio = Calendar(ventana_cal, selectmode='day')
+        cal_inicio.pack(pady=10)
+
+        # Fecha de fin
+        tk.Label(ventana_cal, text="Fecha de Fin").pack()
+        cal_fin = Calendar(ventana_cal, selectmode='day')
+        cal_fin.pack(pady=10)
 
         # Botón para confirmar selección
-        ttk.Button(ventana_cal, text="Seleccionar", command=obtener_fecha).pack(pady=10)
+        ttk.Button(ventana_cal, text="Seleccionar", command=obtener_fechas).pack(pady=20)
 
         ventana_cal.mainloop()
-
+        return df_consolidado_local
     # Llamamos a la función para abrir el selector de fecha
-    seleccionar_fecha()
+    df_consolidado_venta = seleccionar_fecha()
 
 
 

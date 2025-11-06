@@ -180,7 +180,7 @@ def main():
     df_consolidado['Tipo'] = np.select(
         [
             df_consolidado['Marca'].isin(['Nacional WBM', 'Mini', 'BMW Motorrad', 'Jaguar', 'Land Rover', 'BMW', 'Porsche', 'Volvo']),
-            df_consolidado['Marca'].isin(['Subaru', 'Geely', 'DFSK'])
+            df_consolidado['Marca'].isin(['Subaru', 'Geely', 'DFSK' ])
         ],
         [
             'OEM Premium',  # Value if condition for OEM Premium is True
