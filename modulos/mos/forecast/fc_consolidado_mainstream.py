@@ -5,6 +5,7 @@ def main():
     import datetime
     import getpass
     usuario = getpass.getuser()
+    from   datetime import timedelta
 
     # %%
     hoy = datetime.datetime.today()
@@ -72,7 +73,7 @@ def main():
     # MAINSTREAM
 
     # %%
-    mainstream =f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Mainstream/Forecast Colaborado/{año}/{año}-{mes_n1} {mes_n1_nombre}"
+    mainstream =f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Mainstream/Forecast Colaborado/{str((hoy-timedelta(days=30)).year).zfill(2)}/{str((hoy-timedelta(days=30)).year).zfill(2)}-{str((hoy-timedelta(days=30)).month).zfill(2)} {dict_mes_archivos.get(str((hoy-timedelta(days=30)).month).zfill(2))}"
 
     ruta_mainstream = os.listdir(mainstream)
 
@@ -193,7 +194,7 @@ def main():
     # %%
     df_consolidado['Último Eslabón y Material SAP'] = df_consolidado['Último Eslabón y Material SAP'].astype('str')
 
-    cad_remp = pd.read_csv(f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Bases Indicadores en CSV {año}-{mes}/COD_ACTUAL.csv", usecols=['Nro_pieza_fabricante_1','Cod_Actual_1'])
+    cad_remp = pd.read_csv(f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Bases Indicadores en CSV {str((hoy).year).zfill(2)}-{str((hoy).month).zfill(2)}/COD_ACTUAL.csv", usecols=['Nro_pieza_fabricante_1','Cod_Actual_1'])
     df_consolidado_ue = df_consolidado.merge(cad_remp, left_on='Último Eslabón y Material SAP', right_on='Nro_pieza_fabricante_1', how='left')
 
     df_consolidado_ue['Cod_Actual_1'].fillna(df_consolidado_ue['Último Eslabón y Material SAP'], inplace=True)
@@ -225,7 +226,7 @@ def main():
     else:
         print(f"\n📂La carpeta ya existe, el archivo será guardado en: {folder_path}")
 
-    df_consolidado_ue.to_csv(f'{folder_path}/consolidado_fc_{mes_n1_nombre}.csv')
+    df_consolidado_ue.to_csv(f'{folder_path}/consolidado_fc_{dict_mes_archivos.get(str((hoy-timedelta(days=30)).month).zfill(2))}.csv')
     print("\n🎊Proceso finalizado de manera correcta!")
 
 

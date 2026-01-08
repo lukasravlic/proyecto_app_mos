@@ -14,7 +14,7 @@ def main():    # %%
     str(hoy.month).zfill(2)
 
     # %%
-    fc_folder = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Gerenciamiento MOS/Panel PBI/bases mensuales/forecast/2025-{str(hoy.month).zfill(2)}"
+    fc_folder = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Gerenciamiento MOS/Panel PBI/bases mensuales/forecast/{str(hoy.year)}-{str(hoy.month).zfill(2)}"
 
     # %%
     import pandas as pd

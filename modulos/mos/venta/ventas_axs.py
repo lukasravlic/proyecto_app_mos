@@ -4,14 +4,15 @@ def main():
     import datetime
     import getpass
     usuario = getpass.getuser()
+    from   datetime import timedelta
 
     # %%
-    hoy = datetime.datetime.today
+    hoy = datetime.datetime.today()
 
 
     # %%
-    año = str(hoy().year)
-    mes = str(hoy().month).zfill(2)
+    año = str(hoy.year)
+    mes = str(hoy.month).zfill(2)
 
     # %%
     dict_mes = {
@@ -37,21 +38,21 @@ def main():
 
 
     # %%
-    mes_1 = dict_mes.get(str(hoy().month).zfill(2))
-    mes_2 = dict_mes.get(str((hoy() + datetime.timedelta(days=30)).month).zfill(2))
-    mes_3 = dict_mes.get(str((hoy() + datetime.timedelta(days=60)).month).zfill(2))
+    # mes_1 = dict_mes.get(str(hoy().month).zfill(2))
+    # mes_2 = dict_mes.get(str((hoy() + datetime.timedelta(days=30)).month).zfill(2))
+    # mes_3 = dict_mes.get(str((hoy() + datetime.timedelta(days=60)).month).zfill(2))
 
-    # %%
-    fecha_1 = mes_1 + '-' + str(hoy().year)[2:]
-    fecha_2 = mes_2 + '-' + str(hoy().year)[2:]
-    fecha_3 = mes_3 + '-' + str(hoy().year)[2:]
+    # # %%
+    # fecha_1 = mes_1 + '-' + str(hoy().year)[2:]
+    # fecha_2 = mes_2 + '-' + str(hoy().year)[2:]
+    # fecha_3 = mes_3 + '-' + str(hoy().year)[2:]
 
     # %%
     # ruta_bases = f"C:/Users/lravlic/Inchcape/Planificación y Compras Chile - Documentos/Bases Indicadores en CSV {año}-{mes}"
     # bases = os.listdir(ruta_bases)
 
     # %%
-    carpeta_ventas = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Mainstream/S&OP/{año}/{año}-{mes}/AXS"
+    carpeta_ventas = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Mainstream/S&OP/{str((hoy-timedelta(days=30)).year).zfill(2)}/{str((hoy-timedelta(days=30)).year).zfill(2)}-{str((hoy-timedelta(days=30)).month).zfill(2)}/AXS"
     ruta_ventas = os.listdir(carpeta_ventas)
 
     # %%
@@ -223,7 +224,7 @@ def main():
     df_consolidado_venta['Último Eslabón'] = df_consolidado_venta.apply(append_material_venta, axis=1)
 
     # %%
-    mes_1
+
 
     # %%
 
@@ -235,7 +236,7 @@ def main():
         print(f"Carpeta creada: {folder_path}")
     else:
         print(f"La carpeta ya existe: {folder_path}")
-    df_consolidado_venta.to_csv(f'{folder_path}/consolidado_venta_axs_{mes_1}.csv')
+    df_consolidado_venta.to_csv(f'{folder_path}/consolidado_venta_axs_{dict_mes.get(str((hoy-timedelta(days=30)).month).zfill(2))}.csv')
 
 # %%
 

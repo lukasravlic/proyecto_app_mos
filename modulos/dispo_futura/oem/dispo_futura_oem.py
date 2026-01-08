@@ -160,12 +160,12 @@ def main():    # %%
 
     # %%
     #FC
-    ruta_fc = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Mainstream/Forecast Colaborado/{(hoy).year}"
+    ruta_fc = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Mainstream/Forecast Colaborado/{str((hoy-datetime.timedelta(days=30)).year)}"
     lista_fc = os.listdir(ruta_fc)
     for i in lista_fc:
-
-        if i[0:4] == str(hoy.year) and i[5:7] == str((hoy).month-1).zfill(2) :
-
+        
+        if i[0:4] == str((hoy-datetime.timedelta(days=30)).year) and i[5:7] == str((hoy-datetime.timedelta(days=30)).month).zfill(2) :
+            
 
             archivos_fc = os.listdir(ruta_fc + '/' + i )
 
@@ -175,8 +175,6 @@ def main():    # %%
                     archivo = ruta_fc + '/' + i + '/' + j
                     print(f'📂Achivo de FC usado:\n{j}')
                     df_fc = pd.read_excel(archivo,  sheet_name='MOS Forecast Data', header=3, dtype={'Segmentación Inchcape':'str'})
-    #df_fc = pd.read_excel("C:/Users/lravlic/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda/Forecast Inbound/2024/2024-04 Abril/04.2024 S&OP Demanda Sin Restricciones OEM_Inbound.xlsx", sheet_name='Inbound', header=4)
-
 
 
     # #LT
@@ -232,7 +230,7 @@ def main():    # %%
 
 
     # %%
-    df_fc.rename(columns= {'FC sept-24': 'FC sep-24', 'FC sept-253':'FC sep-253'}, inplace=True)
+    df_fc.rename(columns= {'FC sept-24': 'FC sep-24', 'FC sept-253':'FC sep-253','FC sept-263':'FC sep-263'}, inplace=True)
 
     # %%
     df_fc.columns.to_list()
@@ -333,8 +331,7 @@ def main():    # %%
     df_base.drop(['Marca_y','Origen_y'], inplace = True, axis=1)
     df_base = df_base.rename(columns = {'Marca_x':'Marca','Origen_x':'Origen'})
 
-    # %%
-    df_base['Origen'][df_base['Marca'].isin(['Jac', 'Great Wall', 'Changan'])].value_counts()
+
 
     # %%
     df_fc = df_fc.merge(cadena_de_remplazo, left_on='Último Eslabón', right_on='Nro_pieza_fabricante_1', how ='left')

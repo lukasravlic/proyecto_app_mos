@@ -1,12 +1,14 @@
 def main():# %%
+
     import pandas as pd
     import os
     import datetime
     import getpass
     usuario = getpass.getuser()
+    from   datetime import timedelta
 
     # %%
-    hoy = datetime.datetime.today() 
+    hoy = datetime.datetime.today()
 
     # %%
     año = str(hoy.year)
@@ -67,7 +69,7 @@ def main():# %%
     # MAINSTREAM
 
     # %%
-    premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/Forecast Colaborado/{año}-{mes_n1}"
+    premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/Forecast Colaborado/{str((hoy-timedelta(days=30)).year).zfill(2)}-{str((hoy-timedelta(days=30)).month).zfill(2)}"
     ruta_premium = os.listdir(premium)
 
     for i in ruta_premium:
@@ -126,7 +128,7 @@ def main():# %%
 
 
     df_consolidado = pd.DataFrame()  # Definir df_consolidado globalmente
-   
+
     def seleccionar_fecha():
         import tkinter as tk
         from tkinter import ttk
@@ -222,7 +224,7 @@ def main():# %%
 
     # %%
     # Define the path for the folder
-    folder_path = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Gerenciamiento MOS/Panel PBI/bases mensuales/forecast/{año}-{mes}"
+    folder_path = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Gerenciamiento MOS/Panel PBI/bases mensuales/forecast/{str((hoy).year).zfill(2)}-{str((hoy).month).zfill(2)}"
 
     # Check if the folder exists, and create it if it doesn't
     if not os.path.exists(folder_path):
@@ -232,9 +234,8 @@ def main():# %%
         print(f"\n📂La carpeta ya existe, el archivo sera guardado en: {folder_path}")
 
     # %%
-    df_consolidado.to_csv(f'{folder_path}/consolidado_fc_premium_{mes_n1_nombre}.csv')
+    df_consolidado.to_csv(f'{folder_path}/consolidado_fc_premium_{dict_mes_archivos.get(str((hoy-timedelta(days=30)).month).zfill(2))}.csv')
     print("\n🎊Proceso finalizado de manera correcta!")
-
 
 
 if __name__ == '__main__':

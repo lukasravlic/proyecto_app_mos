@@ -12,12 +12,12 @@ def main():
 
     # %%
     mes_actual = str(datetime.datetime.today().month).zfill(2)
-
+    año_actual = str(datetime.datetime.today().year)
     # %%
 
 
     # %%
-    mara_derco = pd.read_csv(f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Bases Indicadores en CSV 2025-{mes_actual}/MARA_R3.csv",usecols=['Material_R3','Sector_dsc'], dtype={'Material_R3':'str'})
+    mara_derco = pd.read_csv(f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Bases Indicadores en CSV {año_actual}-{mes_actual}/MARA_R3.csv",usecols=['Material_R3','Sector_dsc'], dtype={'Material_R3':'str'})
 
     # %%
     excluir = ["Subaru", "Repuesto Alternativo", "Rep.Alter.Maquinaria", "JCB", "JAC Truck", "DFSK", "Sector Comun", "Citroen", "Massey Ferguson", "Chevrolet", "Geely", "Landini", "Still", "Accesorios-Car Care", "Komatsu", "Claas", "Foton Pesados", "Neumáticos", "Valtra", "Implemento Agrícola", "Lubricantes", "Foton Ligeros", "NEUMATICOS", "Hangcha", "Europard", "Jacto", "Kverneland", "DS", "Zona Motors", "DFA", "Zongshen Motos", "Linde", "Farmtrac", "Baterías", "Kymco Motos", "JBC", "Piaggio Motos", "TCM", "SYM Motos", "Royal Enfield", "Hesston", "Derco Gas", "Stara", "JLG", "IVECO", "FAW", "Heli", "Yinxiang Motos", "Fiori", "Joylong", "Kesla", "Haval", "Repuestos Autoplanet", "Magni", "LUBRICANTES", "Equipo y Herramienta", "Haojue", "Otros Servicios","Hafei"]

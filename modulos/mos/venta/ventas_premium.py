@@ -4,14 +4,15 @@ def main():
     import datetime
     import getpass
     usuario = getpass.getuser()
+    from   datetime import timedelta
 
     # %%
-    hoy = datetime.datetime.today
+    hoy = datetime.datetime.today()
 
 
     # %%
-    año = str(hoy().year)
-    mes = str(hoy().month).zfill(2)
+    año = str(hoy.year)
+    mes = str(hoy.month).zfill(2)
 
     # %%
     dict_mes = {
@@ -29,17 +30,17 @@ def main():
         '12':'dic',
     }
 
-    mes_1 = dict_mes.get(str(hoy().month).zfill(2))
-    mes_2 = dict_mes.get(str((hoy() + datetime.timedelta(days=30)).month).zfill(2))
-    mes_3 = dict_mes.get(str((hoy() + datetime.timedelta(days=60)).month).zfill(2))
+    # mes_1 = dict_mes.get(str(hoy().month).zfill(2))
+    # mes_2 = dict_mes.get(str((hoy() + datetime.timedelta(days=30)).month).zfill(2))
+    # mes_3 = dict_mes.get(str((hoy() + datetime.timedelta(days=60)).month).zfill(2))
+
+    # # %%
+    # fecha_1 = mes_1 + '-' + str(hoy().year)[2:]
+    # fecha_2 = mes_2 + '-' + str(hoy().year)[2:]
+    # fecha_3 = mes_3 + '-' + str(hoy().year)[2:]
 
     # %%
-    fecha_1 = mes_1 + '-' + str(hoy().year)[2:]
-    fecha_2 = mes_2 + '-' + str(hoy().year)[2:]
-    fecha_3 = mes_3 + '-' + str(hoy().year)[2:]
-
-    # %%
-    carpeta_venta_premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/S&OP/{año}-{mes}/OEM Premium/"
+    carpeta_venta_premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/S&OP/{str((hoy-timedelta(days=30)).year).zfill(2)}-{str((hoy-timedelta(days=30)).month).zfill(2)}/OEM Premium/"
     ruta_premium = os.listdir(carpeta_venta_premium)
     print(ruta_premium)
 
@@ -74,7 +75,7 @@ def main():
     mes_n1
 
     # %%
-    premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/Forecast Colaborado/{año}-{mes_n1}"
+    premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/Forecast Colaborado/{str((hoy-timedelta(days=30)).year).zfill(2)}-{str((hoy-timedelta(days=30)).month).zfill(2)}"
     ruta_premium = os.listdir(premium)
 
     for i in ruta_premium:
@@ -237,8 +238,7 @@ def main():
     # Apply the function to modify the column
     df_consolidado_venta['Último Eslabón'] = df_consolidado_venta.apply(append_material_venta, axis=1)
 
-    # %%
-    mes_1
+
 
 
     # %%
@@ -254,7 +254,7 @@ def main():
         print(f"Carpeta creada: {folder_path}")
     else:
         print(f"La carpeta ya existe: {folder_path}")
-    df_consolidado_venta.to_csv(f'{folder_path}/consolidado_venta_premium_{mes_1}.csv')
+    df_consolidado_venta.to_csv(f'{folder_path}/consolidado_venta_premium_{dict_mes.get(str((hoy-timedelta(days=30)).month).zfill(2))}.csv')
 
 
 if __name__ == '__main__':
