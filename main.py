@@ -27,6 +27,10 @@ import modulos.mos.mara.consolidacion_mara as consolidacion_mara
 import modulos.dispo_futura.oem.dispo_futura_oem as dispo_futura_oem
 import modulos.dispo_futura.axs.dispo_futura_axs as dispo_futura_axs
 
+#SCRIPT GERE COMEX
+# (Importa aquí los módulos necesarios para los scripts de Gere Comex cuando estén disponibles)
+import modulos.gere_comex.descargas_gere_comex as descargas_gere_comex
+
 
 
 
@@ -82,11 +86,10 @@ class Api:
         elif script_id == "dfOem":
             output = dispo_futura_oem.main()
             return output
-        elif script_id == "dfAxs":
-            output = dispo_futura_axs.main()
+        elif script_id == "GC1":
+            output = descargas_gere_comex.main()
             return output
-        
-
+   
         else:
             print(f"Script con ID '{script_id}' no reconocido. No se ejecutó nada.")
             return f"Error: Script con ID '{script_id}' no reconocido."
