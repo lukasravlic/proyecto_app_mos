@@ -52,7 +52,7 @@ def main():
     # bases = os.listdir(ruta_bases)
 
     # %%
-    carpeta_ventas = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Mainstream/S&OP/{str((hoy-timedelta(days=30)).year).zfill(2)}/{str((hoy-timedelta(days=30)).year).zfill(2)}-{str((hoy-timedelta(days=30)).month).zfill(2)}/AXS"
+    carpeta_ventas = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Mainstream/S&OP/{str((hoy).year).zfill(2)}/{str((hoy).year).zfill(2)}-{str((hoy).month).zfill(2)}/AXS"
     ruta_ventas = os.listdir(carpeta_ventas)
 
     # %%
@@ -236,7 +236,7 @@ def main():
         print(f"Carpeta creada: {folder_path}")
     else:
         print(f"La carpeta ya existe: {folder_path}")
-    df_consolidado_venta.to_csv(f'{folder_path}/consolidado_venta_axs_{dict_mes.get(str((hoy-timedelta(days=30)).month).zfill(2))}.csv')
+    df_consolidado_venta.to_csv(f'{folder_path}/consolidado_venta_axs_{dict_mes.get(str((hoy-timedelta(days=0)).month).zfill(2))}.csv')
 
 # %%
 

@@ -40,7 +40,7 @@ def main():
     # fecha_3 = mes_3 + '-' + str(hoy().year)[2:]
 
     # %%
-    carpeta_venta_premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/S&OP/{str((hoy-timedelta(days=30)).year).zfill(2)}-{str((hoy-timedelta(days=30)).month).zfill(2)}/OEM Premium/"
+    carpeta_venta_premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/S&OP/{str((hoy-timedelta(days=0)).year).zfill(2)}-{str((hoy-timedelta(days=0)).month).zfill(2)}/OEM Premium/"
     ruta_premium = os.listdir(carpeta_venta_premium)
     print(ruta_premium)
 
@@ -254,7 +254,7 @@ def main():
         print(f"Carpeta creada: {folder_path}")
     else:
         print(f"La carpeta ya existe: {folder_path}")
-    df_consolidado_venta.to_csv(f'{folder_path}/consolidado_venta_premium_{dict_mes.get(str((hoy-timedelta(days=30)).month).zfill(2))}.csv')
+    df_consolidado_venta.to_csv(f'{folder_path}/consolidado_venta_premium_{dict_mes.get(str((hoy-timedelta(days=0)).month).zfill(2))}.csv')
 
 
 if __name__ == '__main__':

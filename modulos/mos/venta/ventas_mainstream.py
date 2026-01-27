@@ -41,7 +41,7 @@ def main():    # %%
 
     # # %%
     # mes_1 = dict_mes.get(str(hoy().month).zfill(2))
-    # mes_2 = dict_mes.get(str((hoy() + datetime.timedelta(days=30)).month).zfill(2))
+    # mes_2 = dict_mes.get(str((hoy() + datetime.timedelta(days=0)).month).zfill(2))
     # mes_3 = dict_mes.get(str((hoy() + datetime.timedelta(days=60)).month).zfill(2))
 
     # # %%
@@ -53,7 +53,7 @@ def main():    # %%
     # fecha_3 = mes_3 + '-' + str(hoy().year)[2:]
 
     # %%
-    carpeta_ventas = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Mainstream/S&OP/{str((hoy-timedelta(days=30)).year).zfill(2)}/{str((hoy-timedelta(days=30)).year).zfill(2)}-{str((hoy-timedelta(days=30)).month).zfill(2)}/OEM Mainstream"
+    carpeta_ventas = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Mainstream/S&OP/{str((hoy-timedelta(days=0)).year).zfill(2)}/{str((hoy-timedelta(days=0)).year).zfill(2)}-{str((hoy-timedelta(days=0)).month).zfill(2)}/OEM Mainstream"
     ruta_ventas = os.listdir(carpeta_ventas)
     for i in ruta_ventas:
 
@@ -205,7 +205,7 @@ def main():    # %%
         print(f"Carpeta creada: {folder_path}")
     else:
         print(f"La carpeta ya existe: {folder_path}")
-    df_consolidado_venta.to_csv(f'{folder_path}/consolidado_venta_{dict_mes.get(str((hoy-timedelta(days=30)).month).zfill(2))}.csv')
+    df_consolidado_venta.to_csv(f'{folder_path}/consolidado_venta_{dict_mes.get(str((hoy-timedelta(days=0)).month).zfill(2))}.csv')
 
     # %%
 

@@ -146,6 +146,12 @@ html, body {
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
 
+#section-gc {
+  min-height: auto;
+  padding: 1.5rem 2rem;
+  gap: 0.5rem;
+}
+
 .cuadro .center-section{
   padding-bottom: 20px;
 }
@@ -219,9 +225,26 @@ html, body {
   margin-top: 2rem;
 }
 
-.gs-row {
+.gc-botones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.gs-row{
   display: flex;
   justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.gc-row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
   width: 100%;
 }
@@ -240,12 +263,31 @@ html, body {
   transition: background 0.2s, color 0.2s;
 }
 
+.gc-row .script-button {
+  flex: 0 1 auto;
+  min-width: 160px;
+  max-width: 260px;
+  font-size: 1.08rem;
+  padding: 0.7rem 1.5rem;
+  background-color: #004E89;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
 .gs-row .script-button:hover {
   background-color: #fff;
   color: #004E89;
 }
 
-.gs-bottom {
+.gc-row .script-button:hover {
+  background-color: #fff;
+  color: #004E89;
+}
+
+.gs-bottom .gc-row{
   background: #ff9900 !important;
   color: #fff !important;
   font-weight: bold;
@@ -261,7 +303,7 @@ html, body {
   display: block;
 }
 
-.gs-bottom:hover {
+.gs-bottom:hover .gc-bottom:hover {
   background: #fff !important;
   color: #ff9900 !important;
 }
@@ -317,7 +359,7 @@ html, body {
     align-items: center;
 }
 
-.cuadro .seccion-1 .seccion-3 form{
+.cuadro .seccion-1 .seccion-3  form{
 
   gap:10px;
 }
@@ -540,16 +582,16 @@ html, body {
     min-width: 0;
     font-size: 1rem;
   }
-  .gs-row {
+  .gs-row .gc-row {
     flex-direction: column;
     gap: 0.7rem;
   }
-  .gs-row .script-button {
+  .gs-row .gc-row .script-button {
     min-width: 0;
     max-width: 100%;
     font-size: 1rem;
   }
-  .gs-bottom {
+  .gs-bottom .gc-bottom {
     max-width: 100%;
     font-size: 1rem;
   }
