@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Scripts</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts - Roboto for a professional look -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Carga de Tailwind CSS desde CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Enlace a tu archivo de estilos personalizado (si tienes uno) -->
@@ -20,6 +22,7 @@
                     <li><button class="sidebar-link" data-section="gs">Gere Solped</button></li>
                     <li><button class="sidebar-link" data-section="dispo">Disponibilidad Futura</button></li>
                     <li><button class="sidebar-link" data-section="gc">Gere Comex</button></li>
+                    <li><button class="sidebar-link" data-section="fe">Forecast Error</button></li>
                     <!-- Agrega más secciones si lo deseas -->
                 </ul>
         </nav>
@@ -114,63 +117,57 @@
             
             </section>
 
+            <section  class="cuadro center-section hidden" id="section-fe">
+                <div class="seccion-3 titulo">
+                    <h1>Forecast Error</h1>
+                    <form action="" class="form">
+                        <label for="reportSelectFe">Selecciona un reporte:</label>
+                        <select id="reportSelectFe" class="dropdown">
+                            <option value="scriptFeOem">FE OEM</option>
+                            <option value="scriptUnirBases">Unir Bases</option>
+                            <option value="scriptFePremium">FE Premium</option>
+                        </select>
+                    </form>
+                </div>
 
-
-
-
+                <div class="botones">
+                    <button class="script-button scriptFeOem-button" data-script="feOem">FE OEM</button>
+                    <button class="script-button scriptFePremium-button hidden" data-script="fePremium">FE Premium</button>
+                    <button class="script-button scriptUnirBases-button hidden" data-script="UnirBases">Unir Bases</button>
+                </div>
+            
+            </section>
         </div>
     </div>
     <script>
-        // Obtener referencias a los elementos del DOM
+        // 1. Referencias a elementos del DOM
+        // Referencias generales
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const centerSections = document.querySelectorAll('.center-section');
+        // const outputConsole = document.getElementById('outputConsole'); // Descomentar si tienes un elemento con id="outputConsole"
+
+        // Referencias para la sección MOS
         const reportSelect = document.getElementById('reportSelect');
         const scriptAButtons = document.querySelectorAll('.scriptA-button');
         const scriptBButtons = document.querySelectorAll('.scriptB-button');
         const scriptCButtons = document.querySelectorAll('.scriptC-button');
-        // ¡Esta línea es crucial y ahora está en el lugar correcto!
-        const outputConsole = document.getElementById('outputConsole');
-        //SIDEBAR
-        const sidebarLinks = document.querySelectorAll('.sidebar-link');
-        const centerSections = document.querySelectorAll('.center-section');
 
+        // Referencias para la sección Disponibilidad Futura
         const reportSelectDf = document.getElementById('reportSelectDf');
         const scriptdfOemButtons = document.querySelectorAll('.scriptdfOem-button');
         const scriptdfAxsButtons = document.querySelectorAll('.scriptdfAxs-button');
         const scriptdfInpButtons = document.querySelectorAll('.scriptdfInp-button');
         const scriptdfDitecButtons = document.querySelectorAll('.scriptdfDitec-button');
 
-// Función para mostrar/ocultar botones en Disponibilidad Futura
-        function updateDfButtons() {
-            const selectedValue = reportSelectDf.value;
+        // Referencias para la sección Forecast Error
+        const reportSelectFe = document.getElementById('reportSelectFe');
+        const scriptFeOemButtons = document.querySelectorAll('.scriptFeOem-button');
+        const scriptUnirBasesButtons = document.querySelectorAll('.scriptUnirBases-button');
+        const scriptFePremiumButtons = document.querySelectorAll('.scriptFePremium-button');
 
-            // Oculta todos los botones primero
-            scriptdfOemButtons.forEach(btn => btn.classList.add('hidden'));
-            scriptdfAxsButtons.forEach(btn => btn.classList.add('hidden'));
-            scriptdfInpButtons.forEach(btn => btn.classList.add('hidden'));
-            scriptdfDitecButtons.forEach(btn => btn.classList.add('hidden'));
+        // 2. Funciones para actualizar la interfaz de usuario
 
-            // Muestra solo los botones correspondientes
-            if (selectedValue === 'scriptdfOem') {
-                scriptdfOemButtons.forEach(btn => btn.classList.remove('hidden'));
-            } else if (selectedValue === 'scriptdfAxs') {
-                scriptdfAxsButtons.forEach(btn => btn.classList.remove('hidden'));
-            } else if (selectedValue === 'scriptdfInp') {
-                scriptdfInpButtons.forEach(btn => btn.classList.remove('hidden'));
-            } else if (selectedValue === 'scriptdfDitec') {
-                scriptdfDitecButtons.forEach(btn => btn.classList.remove('hidden'));
-            }
-        }
-
-        // Añadir event listener al select de Disponibilidad Futura
-            if (reportSelectDf) {
-                reportSelectDf.addEventListener('change', updateDfButtons);
-                window.addEventListener('DOMContentLoaded', updateDfButtons);
-            }
-
-
-
-
-
-        // Función para mostrar/ocultar botones
+        // Función para mostrar/ocultar botones en la sección MOS
         function updateButtons() {
             const selectedValue = reportSelect.value;
 
@@ -189,8 +186,63 @@
             }
         }
 
+        // Función para mostrar/ocultar botones en Disponibilidad Futura
+        function updateDfButtons() {
+            const selectedValue = reportSelectDf.value;
 
-        // Sidebar navigation para mostrar la sección correspondiente
+            // Oculta todos los botones primero
+            scriptdfOemButtons.forEach(btn => btn.classList.add('hidden'));
+            scriptdfAxsButtons.forEach(btn => btn.classList.add('hidden'));
+            scriptdfInpButtons.forEach(btn => btn.classList.add('hidden'));
+            scriptdfDitecButtons.forEach(btn => btn.classList.add('hidden'));
+            
+            // Muestra solo los botones correspondientes
+            if (selectedValue === 'scriptdfOem') {
+                scriptdfOemButtons.forEach(btn => btn.classList.remove('hidden'));
+            } else if (selectedValue === 'scriptdfAxs') {
+                scriptdfAxsButtons.forEach(btn => btn.classList.remove('hidden'));
+            } else if (selectedValue === 'scriptdfInp') {
+                scriptdfInpButtons.forEach(btn => btn.classList.remove('hidden'));
+            } else if (selectedValue === 'scriptdfDitec') { // Corregido: 'scriptdfDitec' en lugar de 'scriptdfDitecButtons'
+                scriptdfDitecButtons.forEach(btn => btn.classList.remove('hidden'));
+            }
+        }
+
+        // Función para mostrar/ocultar botones en Forecast Error
+        function updateFeButtons() {
+            const selectedValue = reportSelectFe.value;
+
+            // Oculta todos los botones primero
+            scriptFeOemButtons.forEach(btn => btn.classList.add('hidden'));
+            scriptUnirBasesButtons.forEach(btn => btn.classList.add('hidden'));
+            scriptFePremiumButtons.forEach(btn => btn.classList.add('hidden'));
+            
+            // Muestra solo los botones correspondientes
+            if (selectedValue === 'scriptFeOem') {
+                scriptFeOemButtons.forEach(btn => btn.classList.remove('hidden'));
+            } else if (selectedValue === 'scriptUnirBases') {
+                scriptUnirBasesButtons.forEach(btn => btn.classList.remove('hidden'));
+            } else if (selectedValue === 'scriptFePremium') {
+                scriptFePremiumButtons.forEach(btn => btn.classList.remove('hidden'));
+            }
+        }
+
+        // 3. Manejadores de eventos
+
+        // Event listener para el select de la sección MOS
+        reportSelect.addEventListener('change', updateButtons);
+
+        // Event listener para el select de Disponibilidad Futura
+        if (reportSelectDf) { // Se verifica si el elemento existe antes de añadir el listener
+            reportSelectDf.addEventListener('change', updateDfButtons);
+        }
+
+        // Event listener para el select de Forecast Error
+        if (reportSelectFe) { // Se verifica si el elemento existe antes de añadir el listener
+            reportSelectFe.addEventListener('change', updateFeButtons);
+        }
+
+        // Navegación de la barra lateral para mostrar la sección correspondiente
         sidebarLinks.forEach(btn => {
             btn.addEventListener('click', function() {
                 // Quita la clase activa de todos
@@ -205,46 +257,49 @@
                 document.getElementById('section-' + section).classList.remove('hidden');
             });
         });
-        // Opcional: activa la primera sección al cargar
-        document.querySelector('.sidebar-link[data-section="mos"]').classList.add('active');
-        document.getElementById('section-mos').classList.remove('hidden');
-        // Función para añadir texto a la consola de salida
-        // Esta función será llamada desde Python
+
+        // Manejo del click en los botones de script
+        document.querySelectorAll('.script-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const scriptId = button.getAttribute('data-script');
+                // let nombreScript = ''; // Esta variable no se usa, se puede eliminar o usar para logging
+                // if (scriptId === '1') nombreScript = 'fc_consolidado_mainstream.py';
+                // else if (scriptId === '2') nombreScript = 'script2.py';
+                // ...agrega más si tienes otros scripts...
+
+                if (typeof pywebview !== 'undefined' && pywebview.api && pywebview.api.execute_script) {
+                    pywebview.api.execute_script(scriptId);
+                }
+                // No alerts, solo ejecuta el script
+            });
+        });
+
+        // 4. Inicialización al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            // Activa la primera sección de la barra lateral al cargar
+            const initialSidebarLink = document.querySelector('.sidebar-link[data-section="mos"]');
+            if (initialSidebarLink) {
+                initialSidebarLink.classList.add('active');
+                document.getElementById('section-mos').classList.remove('hidden');
+            }
+
+            // Llama a las funciones de actualización para establecer el estado inicial correcto de los botones
+            updateButtons();
+            if (reportSelectDf) updateDfButtons();
+            if (reportSelectFe) updateFeButtons();
+        });
+
+        // Funciones para la consola de salida (comentadas)
         // function appendOutput(message) {
         //     const p = document.createElement('p');
         //     p.textContent = message;
         //     outputConsole.appendChild(p);
         //     outputConsole.scrollTop = outputConsole.scrollHeight;
         // }
-
         // Función para limpiar la consola de salida
         // function clearOutput() {
         //     outputConsole.innerHTML = '';
         // }
-
-        // Añadir un event listener al select para detectar cambios
-        reportSelect.addEventListener('change', updateButtons);
-
-        // Llamar a la función una vez al cargar la página para asegurar el estado inicial correcto
-        window.onload = updateButtons;
-
-        
-        // Manejo del click en los botones
-        document.querySelectorAll('.script-button').forEach(button => {
-            button.addEventListener('click', () => {
-            const scriptId = button.getAttribute('data-script');
-            let nombreScript = '';
-            if (scriptId === '1') nombreScript = 'fc_consolidado_mainstream.py';
-            else if (scriptId === '2') nombreScript = 'script2.py';
-            // ...agrega más si tienes otros scripts...
-
-            if (typeof pywebview !== 'undefined' && pywebview.api && pywebview.api.execute_script) {
-                pywebview.api.execute_script(scriptId);
-            }
-            // No alerts, solo ejecuta el script
-            });
-        });
-
     </script>
 </body>
 </html>

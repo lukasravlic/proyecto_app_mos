@@ -1,7 +1,14 @@
 :root{
-    --text-color:#1a1c20;
-    --link-color:#4a76ee;
-    --background-color:rgba(239, 239, 208, 0.7);
+    --text-color: #e5e7eb; /* Gray 200 */
+    --link-color: #93c5fd; /* Blue 300 */
+    --background-color: #1f2937; /* Gray 800 */
+    --card-background-color: #374151; /* Gray 700 */
+    --sidebar-bg: #111827; /* Gray 900 */
+    --sidebar-hover-bg: #1f2937; /* Gray 800 */
+    --button-primary-bg: #3b82f6; /* Blue 500 */
+    --button-primary-hover-bg: #2563eb; /* Blue 600 */
+    --button-accent-bg: #4f46e5; /* Indigo 600 */
+    --button-accent-hover-bg: #4338ca; /* Indigo 700 */
 }
 
 #outputConsole, #outputConsole p {
@@ -17,18 +24,19 @@
 
 
 body{
-    background-image: url(images/charlie-suchart-OkApJ8kYLvI-unsplash.jpg);
-    background-size: cover;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif; /* Added a professional sans-serif font */
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  min-height: 100%;
 }
 
 .sidebar {
-  background: #1e293b;
+  background: var(--sidebar-bg);
   color: #fff;
   width:200px;
   min-width: 200px;
@@ -41,8 +49,8 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
+  border-top-left-radius: 0; /* Sharper edges for professional look */
+  border-bottom-left-radius: 0; /* Sharper edges for professional look */
   z-index: 10;
 }
 
@@ -73,8 +81,8 @@ html, body {
   margin-bottom: 0.3rem;
   transition: background 0.2s;
 }
-.sidebar-link:hover, .sidebar-link.active {
-  background: #334155;
+.sidebar-link:hover, .sidebar-link.active { /* Adjusted hover/active background */
+  background: var(--sidebar-hover-bg);
 }
 
 
@@ -132,7 +140,7 @@ html, body {
 
 
 .cuadro {
-  background-color: var(--background-color);
+  background-color: var(--card-background-color);
   border-radius: 14px;
   display: flex;
   flex-direction: column;
@@ -141,7 +149,7 @@ html, body {
   max-width: 900px;
   min-width: 320px;
   min-height: 400px;
-  padding: 2.5rem 2rem;
+  padding: 2rem; /* Slightly reduced padding */
   gap: 2rem;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
@@ -157,20 +165,22 @@ html, body {
 }
 
 /* Botones de Disponibilidad Futura (DF) */
-.section-dispo .botones .script-button {
+.section-dispo .botones .script-button,
+#section-fe .botones .script-button {
   min-width: 110px;      /* Ajusta este valor según el botón más ancho de otras secciones */
   width: 400px;           /* Hace que ocupen todo el ancho disponible del contenedor */
   max-width: 400px;      /* Opcional: limita el ancho máximo */
   margin: 0 auto 0.7rem auto;
-  display: block;
+  display: block; /* Ensure block display */
   font-size: 1.05rem;
-  background-color: #004E89;
+  background-color: var(--button-primary-bg); /* Use primary button color */
   flex-basis: 100%;
 }
 
-.section-dispo .botones .script-button:hover{
-  color:#004E89;
-  background-color: #fff;
+.section-dispo .botones .script-button:hover,
+#section-fe .botones .script-button:hover { /* Adjusted hover for dispo buttons */
+  color: #fff;
+  background-color: var(--button-primary-hover-bg);
 }
 
 .section-dispo .scriptdfOem-button {
@@ -187,7 +197,7 @@ html, body {
   justify-content: center;
 }
 .botones button {
-  background-color: #004E89;
+  background-color: var(--button-primary-bg); /* Use primary button color */
   color: white;
   padding: 0.5rem 1.2rem;
   border: none;
@@ -208,11 +218,10 @@ html, body {
   justify-content: space-between; /* Distribuye los elementos con espacio entre ellos */
 }
 
-.script-button.scriptA-button:where([data-script="4"]) {
-  background-color: #ff9900;
-}
-.script-button.scriptB-button:where([data-script="8"]) {
-  background-color: #ff9900;
+/* Specific consolidation buttons now use accent color */
+.script-button.scriptA-button[data-script="4"],
+.script-button.scriptB-button[data-script="8"] {
+  background-color: var(--button-accent-bg);
 }
 
 
@@ -254,58 +263,58 @@ html, body {
   min-width: 160px;
   max-width: 260px;
   font-size: 1.08rem;
-  padding: 0.7rem 0;
-  background-color: #004E89;
+  padding: 0.7rem 0; /* Adjusted padding */
+  background-color: var(--button-primary-bg); /* Use primary button color */
   color: #fff;
   border: none;
   border-radius: 8px;
   font-weight: 500;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .gc-row .script-button {
   flex: 0 1 auto;
   min-width: 160px;
   max-width: 260px;
-  font-size: 1.08rem;
-  padding: 0.7rem 1.5rem;
-  background-color: #004E89;
+  font-size: 1.08rem; /* Consistent font size */
+  padding: 0.7rem 1.5rem; /* Consistent padding */
+  background-color: var(--button-primary-bg); /* Use primary button color */
   color: #fff;
   border: none;
   border-radius: 8px;
   font-weight: 500;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .gs-row .script-button:hover {
-  background-color: #fff;
-  color: #004E89;
+  background-color: var(--button-primary-hover-bg);
+  color: #fff;
 }
 
 .gc-row .script-button:hover {
-  background-color: #fff;
-  color: #004E89;
+  background-color: var(--button-primary-hover-bg);
+  color: #fff;
 }
 
-.gs-bottom .gc-row{
-  background: #ff9900 !important;
+.gs-bottom { /* Assuming .gs-bottom is the consolidation button */
+  background: var(--button-accent-bg) !important; /* Use accent color for consolidation */
   color: #fff !important;
   font-weight: bold;
   border: none;
   border-radius: 8px;
   padding: 0.7rem 0;
   font-size: 1.08rem;
-  width: 100%;
-  max-width: 560px;
+  width: 100%; /* Full width */
+  max-width: 560px; /* Max width */
   margin: 0 auto;
   box-shadow: 0 2px 8px #0001;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.3s ease, color 0.3s ease;
   display: block;
 }
 
-.gs-bottom:hover .gc-bottom:hover {
-  background: #fff !important;
-  color: #ff9900 !important;
+.gs-bottom:hover { /* Adjusted hover for gs-bottom */
+  background: var(--button-accent-hover-bg) !important;
+  color: #fff !important;
 }
 /* Regla para los 3 primeros botones */
 .script-button:where([data-script="1"]),
@@ -341,8 +350,8 @@ html, body {
 }
 
 .botones button:hover{
-  color: #004E89;
-  background-color:white;
+  color: #fff; /* White text on hover */
+  background-color: var(--button-primary-hover-bg); /* Darker primary blue on hover */
 
 }
 
@@ -369,26 +378,28 @@ html, body {
     height: 25px;
     text-align: center;
     background-color: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--sidebar-hover-bg);
 }
 
  .hidden {
             display: none;
         }
 
-        /* Estilos para la consola de salida */
+/* Estilos para la consola de salida */
 .output-label {
     display: block;
     margin-top: 20px;
     margin-bottom: 10px;
-    color: #333;
+    color: var(--text-color);
     font-size: 1.25rem; /* text-xl de Tailwind */
     font-weight: bold;
     text-align: left; /* Alinea el label a la izquierda */
 }
 
 #outputConsole {
-    background: #222 !important;
-    color: #fff !important;
+    background: var(--background-color) !important;
+    color: var(--text-color) !important;
     min-height: 40px !important; 
     max-height: 90px;
     font-size: 13px !important;
@@ -399,13 +410,13 @@ html, body {
     white-space: pre-wrap;
     word-break: break-all;
     margin-top: 10px;
-    border: 1px solid #4b5563;
+    border: 1px solid var(--card-background-color);
     border-radius: 8px;
 }
 #outputConsole p {
     margin: 0;
     padding: 2px 0;
-    color: #fff !important;
+    color: var(--text-color) !important;
 }
 
 @media (max-width: 1350px) {
@@ -434,7 +445,7 @@ html, body {
     width: 100% !important;
     height: 10vh;
     position: static;
-    border-radius: 0;
+    border-radius: 0; /* Sharper edges */
     flex-direction: row;
     align-items:center;
     justify-content:space-between;
@@ -541,7 +552,7 @@ html, body {
     width: 100%;
     height: auto;
     border-radius: 0;
-    flex-direction: row;
+    flex-direction: row; /* Ensure row direction */
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 0.5rem;
@@ -582,11 +593,11 @@ html, body {
     min-width: 0;
     font-size: 1rem;
   }
-  .gs-row .gc-row {
+  .gs-row, .gc-row { /* Apply to both gs-row and gc-row */
     flex-direction: column;
     gap: 0.7rem;
   }
-  .gs-row .gc-row .script-button {
+  .gs-row .script-button, .gc-row .script-button { /* Apply to buttons within these rows */
     min-width: 0;
     max-width: 100%;
     font-size: 1rem;

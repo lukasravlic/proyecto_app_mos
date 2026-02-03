@@ -30,6 +30,12 @@ import modulos.dispo_futura.axs.dispo_futura_axs as dispo_futura_axs
 #SCRIPT GERE COMEX
 # (Importa aquí los módulos necesarios para los scripts de Gere Comex cuando estén disponibles)
 import modulos.gere_comex.descargas_gere_comex as descargas_gere_comex
+#SCRIPT FORECAST ERROR
+import modulos.forecast_error.fc_error_oem as forecast_error_oem
+import modulos.forecast_error.unir_bases as unir_bases
+import modulos.forecast_error.fc_error_premium as forecast_error_premium
+
+
 
 
 
@@ -88,6 +94,16 @@ class Api:
             return output
         elif script_id == "GC1":
             output = descargas_gere_comex.main()
+            return output
+        elif script_id == "feOem":
+            output = forecast_error_oem.main()
+            return output
+        elif script_id == "unirBases":
+            output = unir_bases.main()
+            return output
+        
+        elif script_id == "fePremium":
+            output  = forecast_error_premium.main()
             return output
    
         else:

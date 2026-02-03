@@ -114,7 +114,7 @@ def main():
         session.findById("wnd[1]/tbar[0]/btn[0]").press()
 
         # Set file path and name
-        session.findById("wnd[1]/usr/ctxtDY_PATH").text = f"C:\\Users\\{usuario}\\descargas_automaticas"
+        session.findById("wnd[1]/usr/ctxtDY_PATH").text = f"C:\\Users\\{usuario}\\Inchcape\\Planificación y Compras Chile - Documentos\\Planificación y Compras KPI-Reportes\\Descargas Automaticas\\Gerenciamiento Comex"
         session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = "dts.XLSX"
         session.findById("wnd[1]/usr/ctxtDY_FILENAME").caretPosition = len("dts.XLSX")
         session.findById("wnd[1]/tbar[0]/btn[11]").press()
@@ -190,7 +190,7 @@ def main():
         session.findById("wnd[1]/tbar[0]/btn[0]").press()
 
         # Set file path and name
-        session.findById("wnd[1]/usr/ctxtDY_PATH").text = f"C:\\Users\\{usuario}\\descargas_automaticas"
+        session.findById("wnd[1]/usr/ctxtDY_PATH").text = f"C:\\Users\\{usuario}\\Inchcape\\Planificación y Compras Chile - Documentos\\Planificación y Compras KPI-Reportes\\Descargas Automaticas\\Gerenciamiento Comex"
         session.findById("wnd[1]/usr/ctxtDY_FILENAME").text = "comex.XLSX"
         session.findById("wnd[1]/usr/ctxtDY_FILENAME").caretPosition = 5
         session.findById("wnd[1]/tbar[0]/btn[11]").press()
