@@ -1,5 +1,7 @@
     # %%
 def main():
+        # Librerías para manipulación y análisis de datos
+    # %%
     # Librerías para manipulación y análisis de datos
 
     import pandas as pd
@@ -25,6 +27,7 @@ def main():
     # Recorremos los archivos en la carpeta
     for archivo in os.listdir(carpeta):
         if archivo.endswith('.parquet') and 'Consolidado' not in archivo:
+            print(archivo)
             ruta_archivo = os.path.join(carpeta, archivo)
             try:
                 df = pd.read_parquet(ruta_archivo)
@@ -44,6 +47,8 @@ def main():
         print(f"Consolidado guardado en: {ruta_salida}")
     else:
         print("No se encontraron archivos válidos para consolidar.")
+
+    print(consolidado.head())
 
 
 if __name__ == '__main__':

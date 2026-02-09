@@ -35,6 +35,9 @@ import modulos.forecast_error.fc_error_oem as forecast_error_oem
 import modulos.forecast_error.unir_bases as unir_bases
 import modulos.forecast_error.fc_error_premium as forecast_error_premium
 
+#SCRIPT LAND COST
+import modulos.land_cost.land_cost as land_cost
+
 
 
 
@@ -92,6 +95,9 @@ class Api:
         elif script_id == "dfOem":
             output = dispo_futura_oem.main()
             return output
+        elif script_id == "dfAxs":
+            output = dispo_futura_axs.main()
+            return output
         elif script_id == "GC1":
             output = descargas_gere_comex.main()
             return output
@@ -104,6 +110,9 @@ class Api:
         
         elif script_id == "fePremium":
             output  = forecast_error_premium.main()
+            return output
+        elif script_id == "lc2":
+            output = land_cost.main()
             return output
    
         else:

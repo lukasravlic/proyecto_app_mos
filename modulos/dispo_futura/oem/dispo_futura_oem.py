@@ -196,37 +196,55 @@ def main():    # %%
     root.withdraw()  # Ocultar la ventana principal de tkinter
 
     # Abrir un cuadro de diálogo para seleccionar el archivo de stock
-    archivo_tubo = filedialog.askopenfilename(
-        title="Selecciona el archivo de Stock",
-        filetypes=(("Archivos de Excel", "*.xlsx"), ("Todos los archivos", "*.*"))
-    )
+    def seleccionar_archivo_tkinter(titulo):
+        # Creamos una raíz temporal de Tkinter
+        root = tk.Tk()
+        
+        # Esto es vital: ocultamos la ventanita gris vacía de Tkinter
+        root.withdraw()
+        
+        # Forzamos a que el cuadro de diálogo aparezca al frente de todo
+        root.attributes("-topmost", True)
+        
+        # Abrimos el selector de archivos
+        archivo = filedialog.askopenfilename(
+            title=titulo,
+            filetypes=(("Archivos de Excel", "*.xlsx"), ("Todos los archivos", "*.*"))
+        )
+        
+        # Cerramos la raíz de Tkinter inmediatamente después de elegir
+        root.destroy()
+        
+        return archivo
+    
+    print("Abriendo selector de archivos...")
+    dtypes = {'Almacén': 'str', 'Centro': 'str'}
+# Usamos nuestra función segura para hilos
+    archivo_stock = seleccionar_archivo_tkinter("Selecciona el archivo de Stock")
 
-    # Verificar si se seleccionó algún archivo
-    if archivo_tubo:
-        print(f"Archivo de Stock seleccionado: {archivo_tubo}")
-        dtypes = {'Almacén': 'str', 'Centro': 'str'}
-
-        # Leer el archivo seleccionado
-        df_stock = pd.read_excel(archivo_tubo, dtype=dtypes, sheet_name='Sheet1')
-        print("Archivo de Stock cargado correctamente.")
+    if archivo_stock:
+        print(f"Archivo de Stock seleccionado: {archivo_stock}")
+        # Tu lógica de pandas aquí...
     else:
-        print("No se seleccionó ningún archivo de Stock.")
+        print("No se seleccionó ningún archivo.")
+    
+    df_stock = pd.read_excel(archivo_stock, dtype=dtypes, sheet_name='Sheet1')
 
-    # Abrir un cuadro de diálogo para seleccionar el archivo de TR (Transito)
-    archivo_tr = filedialog.askopenfilename(
-        title="Selecciona el archivo de TR FINAL R3 Consolidado",
-        filetypes=(("Archivos de Excel", "*.xlsx"), ("Todos los archivos", "*.*"))
-    )
+    
+    
 
-    # Verificar si se seleccionó algún archivo
+
+    # Repite lo mismo para el archivo de TR
+    print("Abriendo selector de archivos...")
+
+    # Usamos nuestra función segura para hilos
+    archivo_tr = seleccionar_archivo_tkinter("Selecciona el archivo de TR FINAL R3 Consolidado")
     if archivo_tr:
-        print(f"Archivo de TR seleccionado: {archivo_tr}")
-
-        # Leer el archivo seleccionado
-        df_tr = pd.read_excel(archivo_tr, sheet_name='Sheet1')
-        print("Archivo de TR cargado correctamente.")
+        print(f"Archivo de Stock seleccionado: {archivo_tr}")
+        # Tu lógica de pandas aquí...
     else:
-        print("No se seleccionó ningún archivo de TR.")
+        print("No se seleccionó ningún archivo.")
+    df_tr = pd.read_excel(archivo_tr, sheet_name='Sheet1')
 
 
     # %%

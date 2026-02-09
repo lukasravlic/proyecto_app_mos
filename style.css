@@ -39,8 +39,8 @@ html, body {
   background: var(--sidebar-bg);
   color: #fff;
   width:200px;
-  min-width: 200px;
-  max-width: 180px;
+  min-width: 200px; /* Mantener el ancho fijo para pantallas grandes */
+  /* max-width: 180px; Eliminado: era contradictorio con width y min-width */
   height: 100vh;           /* Ocupa todo el alto de la ventana */
   position: fixed;         /* Fija el sidebar en la pantalla */
   left: 0;
@@ -85,6 +85,17 @@ html, body {
   background: var(--sidebar-hover-bg);
 }
 
+/* Estilos para el elemento "Manuales" en la barra lateral */
+.sidebar-manuales-item {
+  margin-top: auto; /* Empuja el elemento al final del contenedor flex */
+  padding-top: 1.5rem; /* Añade espacio por encima para separarlo */
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria */
+}
+
+.sidebar-manuales-link {
+  background-color: var(--button-accent-bg) !important; /* Color de acento para el botón */
+}
+
 
 .layout {
   display: flex;
@@ -101,6 +112,8 @@ html, body {
   align-items: center;
   min-height: 90vh;
   gap: 2.5rem;
+  margin-left: 200px; /* Compensar el espacio del sidebar fijo */
+  width: calc(100% - 200px); /* Ajustar el ancho para no generar scroll horizontal */
 }
 
 .hidden { 
@@ -152,6 +165,7 @@ html, body {
   padding: 2rem; /* Slightly reduced padding */
   gap: 2rem;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  position: relative; /* Added for absolute positioning of children */
 }
 
 #section-gc {
@@ -425,7 +439,7 @@ html, body {
     padding: 0 20px;
   }
   .cuadro{
-    width: 40%;
+    width: 100%; /* Usar todo el ancho disponible (limitado por max-width) */
     min-width:50px;
     padding: 2rem;
 
@@ -440,6 +454,7 @@ html, body {
   }
   .sidebar {
 
+    /* Estilos para convertir el sidebar en una barra horizontal */
     min-width: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
@@ -451,6 +466,10 @@ html, body {
     justify-content:space-between;
     /* padding: 0.5rem 0.5rem; */
   }
+  .sidebar h2 {
+    font-size: 1.1rem; /* Ajustar tamaño del título en modo horizontal */
+    margin-bottom: 0;
+  }
   .sidebar ul {
     display: flex;
     flex-direction: row;
@@ -458,10 +477,14 @@ html, body {
     width: auto;
 
   }
-
-  .sidebar h2{
-    font-size: 25px;
+  /* Ajustes para el elemento "Manuales" en la barra lateral horizontal */
+  .sidebar-manuales-item {
+    margin-top: 0; /* Eliminar el margen superior automático */
+    padding-top: 0; /* Eliminar el padding superior */
+    border-top: none; /* Eliminar la línea divisoria */
+    margin-left: auto; /* Empujar a la derecha */
   }
+
   .sidebar-link {
     width: auto;
     min-width: 80px;
@@ -471,9 +494,11 @@ html, body {
     min-height: 0;
     padding: 0.5rem;
     gap: 1.2rem;
+    margin-left: 0; /* Quitar el margen cuando el sidebar es horizontal */
+    width: 100%;
   }
   .cuadro {
-    min-width: 800px;
+    min-width: 0; /* Asegurar que no haya un ancho mínimo que cause desbordamiento */
     max-width: 100%;
     padding: 1rem 0.5rem;
     border-radius: 8px;
@@ -488,8 +513,8 @@ html, body {
     padding: 0 10px;
   }
   .cuadro {
-    width: 100%;
-    min-width: 0;
+    width: 100%; /* Esto ahora será 100% del center-wrapper, que está centrado */
+    min-width: 0; /* Asegurar que no haya un ancho mínimo que cause desbordamiento */
     padding: 1rem;
   }
   #outputConsole {
@@ -497,14 +522,6 @@ html, body {
     min-height: 100px !important;
     max-height: 180px;
     padding: 10px;
-  }
-  /* .botones {
-    flex-direction: column;
-    gap: 0.5rem;
-  } */
-  .botones button {
-    width: 100%;
-    /* min-width: 0; */
   }
 }
 
@@ -524,65 +541,33 @@ html, body {
 
 /* ...existing code... */
 
-/* Responsive sidebar for tablets and mobile */
-@media (max-width: 900px) {
-  .sidebar {
-    min-width: 80px;
-    max-width: 110px;
-    padding: 1rem 0.5rem;
-    font-size: 0.95rem;
-  }
-  .sidebar h2 {
-    font-size: 1rem;
-    margin-bottom: 0.8rem;
-  }
-  .sidebar-link {
-    font-size: 0.95rem;
-    padding: 0.5rem 0.3rem;
-  }
+/* Styles for the manual link positioned at the bottom-right of .cuadro */
+.cuadro .manual-link-wrapper {
+  position: absolute;
+  right: 0.5rem; /* moved closer to the right edge */
+  bottom: 0.75rem; /* slightly lower */
+  padding: 0.25rem;
+  z-index: 5;
+  transform: translateX(4px); /* nudge a bit more to the right */
 }
 
-@media (max-width: 700px) {
-  .layout {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .sidebar {
-    position: static;
-    width: 100%;
-    height: auto;
-    border-radius: 0;
-    flex-direction: row; /* Ensure row direction */
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem 0.5rem;
-  }
-  .sidebar ul {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-    width: auto;
-  }
-  .sidebar-link {
-    width: auto;
-    min-width: 80px;
-    margin-bottom: 0;
-  }
-  .center-wrapper {
-    min-height: 0;
-    padding: 0.5rem;
-    gap: 1.2rem;
-  }
-  .cuadro {
-    min-width: 0;
-    max-width: 100%;
-    padding: 1rem 0.5rem;
-    border-radius: 8px;
-  }
+.manual-link {
+  color: var(--link-color);
+  text-decoration: underline;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--card-background-color);
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  display: inline-block; /* Ensures padding and background are applied correctly */
 }
 
-/* Stack buttons vertically on small screens */
-@media (max-width: 600px) {
+.manual-link:hover {
+  background-color: var(--sidebar-hover-bg);
+  text-decoration: none;
+}
+ 
+@media (max-width: 600px) { /* Esta media query se mantiene para estilos específicos de botones */
   .botones {
     flex-direction: column;
     gap: 0.5rem;
@@ -608,7 +593,52 @@ html, body {
   }
 }
 
-/* Improve form and select on mobile */
+/* Styles for the manual link positioned at the bottom-right of .cuadro */
+/* Responsive sidebar for tablets and mobile (redundant, removed) */
+@media (max-width: 900px) {
+  .sidebar {
+    min-width: 80px;
+    max-width: 110px;
+    padding: 1rem 0.5rem;
+    font-size: 0.95rem;
+  }
+  .sidebar h2 {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+  .sidebar-link {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.3rem;
+  }
+}
+
+@media (max-width: 600px) { /* Esta media query se mantiene para estilos específicos de botones */
+  .botones {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+  .botones button {
+    width: 100%;
+    min-width: 0;
+    font-size: 1rem;
+  }
+  .gs-row, .gc-row { /* Apply to both gs-row and gc-row */
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .gs-row .script-button, .gc-row .script-button { /* Apply to buttons within these rows */
+    min-width: 0;
+    max-width: 100%;
+    font-size: 1rem;
+  }
+  .gs-bottom .gc-bottom {
+    max-width: 100%;
+    font-size: 1rem;
+  }
+}
+
+/* Improve form and select on mobile (kept as it's specific to form elements) */
 @media (max-width: 500px) {
   .cuadro form select {
     width: 100%;
@@ -620,4 +650,18 @@ html, body {
   }
 }
 
-/* ...existing code... */
+/* Responsive adjustment: en pantallas pequeñas el manual-link se vuelve estático para evitar solapamientos */
+@media (max-width: 600px) {
+  .cuadro .manual-link { /* Ahora apunta directamente al enlace */
+    position: static;
+    margin-top: 1rem;
+    right: auto;
+    bottom: auto;
+    align-self: flex-end;
+  }
+  #section-mos .manual-link {
+    position: static;
+    margin-top: 1rem;
+    align-self: flex-end;
+  }
+}

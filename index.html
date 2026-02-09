@@ -23,6 +23,8 @@
                     <li><button class="sidebar-link" data-section="dispo">Disponibilidad Futura</button></li>
                     <li><button class="sidebar-link" data-section="gc">Gere Comex</button></li>
                     <li><button class="sidebar-link" data-section="fe">Forecast Error</button></li>
+                    <li><button class="sidebar-link" data-section="lc">Land Cost</button></li>
+                    <li class="sidebar-manuales-item"><button class="sidebar-link sidebar-manuales-link" data-section="manuales">Manuales</button></li>
                     <!-- Agrega más secciones si lo deseas -->
                 </ul>
         </nav>
@@ -38,6 +40,12 @@
                             <option value="scriptC">MARA</option>
                         </select>
                     </form>
+
+
+                    <div class="manual-link-wrapper">
+                
+
+                    
                 </div>
 
                 <div class="botones">
@@ -54,10 +62,15 @@
 
                     <!-- Botones para Script C (inicialmente ocultos) -->
                     <button class="script-button scriptC-button hidden" data-script="9">Consolidar MARA</button>
+                  
                 </div>
-
+                <div class="manual-link-wrapper">
+                    <a href="https://inchcapeuk.sharepoint.com/:w:/r/sites/PlanificacionyComprasCL/Documentos%20compartidos/Planificacion%20y%20Compras%20Procesos%20y%20Metodos/Procedimientos%20y%20Estandar%20Procesos%20y%20Metodos/Procedimiento%20de%20Preparaci%C3%B3n%20y%20Actualizaci%C3%B3n%20Panel%20MOS.docx?d=w1107c516488e48358f0c143a52fb25d8&csf=1&web=1&e=xlXaCU" target="_blank" class="manual-link">Manual de Uso MOS</a>
+                </div>
+                
                 
             </section>
+                
             <section  class="cuadro center-section hidden" id="section-gs">
                 <div class="seccion-2">
                     <h1>Gere Solped</h1>
@@ -68,9 +81,10 @@
                         <button class="script-button" data-script="GS1">Descarga VMP</button>
                         <button class="script-button" data-script="GS2">Descarga INP</button>
                     </div>
-                    <button class="script-button gs-bottom" data-script="GS3">Consolidación</button>
-
-                    
+                    <button class="script-button gs-bottom" data-script="GS3">Consolidación</button>   
+                </div>
+                <div class="manual-link-wrapper">
+                        <a href="https://inchcapeuk.sharepoint.com/:w:/r/sites/PlanificacionyComprasCL/Documentos%20compartidos/Planificacion%20y%20Compras%20Procesos%20y%20Metodos/Procedimientos%20y%20Estandar%20Procesos%20y%20Metodos/Procedimiento%20de%20Preparaci%C3%B3n%20y%20Actualizaci%C3%B3n%20Panel%20MOS.docx?d=w1107c516488e48358f0c143a52fb25d8&csf=1&web=1&e=xlXaCU" target="_blank" class="manual-link">Manual de Uso Gere Solped</a>
                 </div>
             
             </section>
@@ -100,6 +114,9 @@
 
                     <!-- Botones para Script B (inicialmente ocultos) -->
   
+                </div>
+                <div class="manual-link-wrapper">
+                    <a href="https://inchcapeuk.sharepoint.com/:w:/r/sites/PlanificacionyComprasCL/Documentos%20compartidos/Planificacion%20y%20Compras%20Procesos%20y%20Metodos/Procedimientos%20y%20Estandar%20Procesos%20y%20Metodos/Procedimiento%20de%20Preparaci%C3%B3n%20y%20Actualizaci%C3%B3n%20Panel%20MOS.docx?d=w1107c516488e48358f0c143a52fb25d8&csf=1&web=1&e=xlXaCU" target="_blank" class="manual-link">Manual de Uso Disponibilidad Futura</a>
                 </div>
 
                 
@@ -133,9 +150,40 @@
                 <div class="botones">
                     <button class="script-button scriptFeOem-button" data-script="feOem">FE OEM</button>
                     <button class="script-button scriptFePremium-button hidden" data-script="fePremium">FE Premium</button>
-                    <button class="script-button scriptUnirBases-button hidden" data-script="UnirBases">Unir Bases</button>
+                    <button class="script-button scriptUnirBases-button hidden" data-script="unirBases">Unir Bases</button>
                 </div>
             
+            </section>
+
+            <section class="cuadro center-section hidden" id="section-manuales">
+                <div class="seccion-manuales titulo">
+                    <h1>Manuales de Usuario</h1>
+                </div>
+                <div class="manuales-links flex flex-col space-y-4 p-4">
+                    <div class="manual-link-wrapper">
+                        <a href="https://ejemplo.com/manual_mos.docx" target="_blank" class="manual-link">Manual de MOS</a>
+                    </div>
+                    <a href="https://ejemplo.com/manual_disponibilidad_futura.docx" target="_blank" class="text-blue-600 hover:underline">Manual de Disponibilidad Futura</a>
+                    <!-- Agrega más enlaces a tus manuales aquí, asegurándote de usar las URLs reales de tus documentos de Word en línea. -->
+                    <p class="text-sm text-gray-500 mt-4">Nota: Estos son enlaces de ejemplo. Reemplázalos con las URLs reales de tus documentos de Word en línea.</p>
+                </div>
+            </section>
+            <section  class="cuadro center-section hidden" id="section-lc">
+                <div class="seccion-2">
+                    <h1>Land Cost</h1>
+                </div>
+
+                <div class="botones lc-botones">
+                    <div class="lc-row">
+                        <button class="script-button" data-script="lc1">Extraer Fletes</button>
+                        <button class="script-button" data-script="lc2">Ejecutar Land Cost</button>
+                        <button class="script-button" data-script="lc3">Consolidar Land Cost</button>
+                    </div>
+                </div>
+                <div class="manual-link-wrapper">
+                        <a href="https://inchcapeuk.sharepoint.com/:w:/r/sites/PlanificacionyComprasCL/Documentos%20compartidos/Planificacion%20y%20Compras%20Procesos%20y%20Metodos/Procedimientos%20y%20Estandar%20Procesos%20y%20Metodos/Procedimiento%20de%20Preparaci%C3%B3n%20y%20Actualizaci%C3%B3n%20Panel%20MOS.docx?d=w1107c516488e48358f0c143a52fb25d8&csf=1&web=1&e=xlXaCU" target="_blank" class="manual-link">Manual de Uso Land Cost</a>
+                </div>
+        
             </section>
         </div>
     </div>

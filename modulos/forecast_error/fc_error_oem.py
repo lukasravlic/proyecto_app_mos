@@ -188,15 +188,42 @@ def main():
     df_n4['fc_std'] = df_n4['n4_std']
 
 
-    # %%
-    # Corrige todas las columnas de una sola vez
-    for df, anas_col, fc_col, fc_std_col in [(df_n1, 'fc_anas', 'fc', 'fc_std'), (df_n4, 'fc_anas', 'fc', 'fc_std')]:
-        df[anas_col] = df[anas_col].str.replace(',', '.', regex=False).astype(float)
-        df[fc_col] = df[fc_col].str.replace(',', '.', regex=False).astype(float)
-        df[fc_std_col] = df[fc_std_col].str.replace(',', '.', regex=False).astype(float)
+        # %%
+        # Corrige todas las columnas de una sola vez
+    # ==========================================
+    # PROCESAMIENTO PARA DATAFRAME: df_n1
+    # ==========================================
 
-    # %%
-    df_n1['fc_anas']
+    # 1. Columna: fc_anas
+    # Convertimos a string, quitamos espacios, cambiamos coma por punto
+    df_n1['fc_anas'] = df_n1['fc_anas'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    # Convertimos a número (si falla algo, pondrá NaN en lugar de romper el código)
+    df_n1['fc_anas'] = pd.to_numeric(df_n1['fc_anas'], errors='coerce')
+
+    # 2. Columna: fc
+    df_n1['fc'] = df_n1['fc'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    df_n1['fc'] = pd.to_numeric(df_n1['fc'], errors='coerce')
+
+    # 3. Columna: fc_std
+    df_n1['fc_std'] = df_n1['fc_std'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    df_n1['fc_std'] = pd.to_numeric(df_n1['fc_std'], errors='coerce')
+
+
+    # ==========================================
+    # PROCESAMIENTO PARA DATAFRAME: df_n4
+    # ==========================================
+
+    # 1. Columna: fc_anas
+    df_n4['fc_anas'] = df_n4['fc_anas'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    df_n4['fc_anas'] = pd.to_numeric(df_n4['fc_anas'], errors='coerce')
+
+    # 2. Columna: fc
+    df_n4['fc'] = df_n4['fc'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    df_n4['fc'] = pd.to_numeric(df_n4['fc'], errors='coerce')
+
+    # 3. Columna: fc_std
+    df_n4['fc_std'] = df_n4['fc_std'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    df_n4['fc_std'] = pd.to_numeric(df_n4['fc_std'], errors='coerce')
 
     # %%
     df_n1['ID2'] = df_n1['UE_2'] + df_n1['Canal']
@@ -442,7 +469,7 @@ def main():
     # %%
     consolidado_cruce_ventas = consolidado_cruce_ventas[['ID2', 'Periodo', 'UE_2', 'fc', 'fc_anas','fc_std',
         'Venta', 'Prom.', 'Total instock', 'MAPE_AJUSTADO', 'ERP',
-        'ERN', 'MAPE_ANASTASIA', 'ERP_ANASTASIA', 'ERN_ANASTASIA', 'WMAPE',
+        'ERN', 'MAPE_ANASTASIA', 'ERP_ANASTASIA', 'ERN_ANASTASIA', 'WMAPE','MAPE_ESTADISTICO', 'ERP_ESTADISTICO', 'ERN_ESTADISTICO', 'WMAPE.2',
         'WMAPE.1', 'Mes', 'Costo', 'Costo de Venta', 'Forecast en Costo', 'MAPE Costo',
         'ERP Costo', 'ERN Costo', 'WMAPE Costo', 'Input']]
 
