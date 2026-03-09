@@ -40,7 +40,7 @@ def main():
     # fecha_3 = mes_3 + '-' + str(hoy().year)[2:]
 
     # %%
-    carpeta_venta_premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/S&OP/{str((hoy-timedelta(days=0)).year).zfill(2)}-{str((hoy-timedelta(days=0)).month).zfill(2)}/OEM Premium/"
+    carpeta_venta_premium = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras OEM/Demanda y New Model Parts/Demanda/Demanda Premium/S&OP/{str((hoy-timedelta(days=0)).year).zfill(2)}/{str((hoy-timedelta(days=0)).year).zfill(2)}-{str((hoy-timedelta(days=0)).month).zfill(2)}/OEM Premium/"
     ruta_premium = os.listdir(carpeta_venta_premium)
     print(ruta_premium)
 

@@ -38,6 +38,11 @@ import modulos.forecast_error.fc_error_premium as forecast_error_premium
 #SCRIPT LAND COST
 import modulos.land_cost.land_cost as land_cost
 
+#SCRIPT TRANSITO
+import modulos.varios.transito as transito
+import modulos.varios.oc_produccion as oc_produccion
+import modulos.varios.trans_maestros as trans_maestros
+
 
 
 
@@ -114,6 +119,16 @@ class Api:
         elif script_id == "lc2":
             output = land_cost.main()
             return output
+        elif script_id == "tr1":
+            output = transito.main()
+            return output
+        elif script_id == "tr2":
+            output = oc_produccion.main()
+            return output
+        elif script_id == "tr3":
+            output = trans_maestros.main()
+            return output
+        
    
         else:
             print(f"Script con ID '{script_id}' no reconocido. No se ejecutó nada.")

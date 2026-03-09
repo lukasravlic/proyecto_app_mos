@@ -1,6 +1,4 @@
 def main():
-    # Librerías para manipulación y análisis de datos
-
     import pandas as pd
     import datetime
     from datetime import datetime
@@ -167,11 +165,14 @@ def main():
 
         if 'Sell In Premium' in a:
         #and str(numero_mes).zfill(2) in a and str(año) in a:
-    
+
             ruta_ventas = os.path.join(ventas, a)
     df_ventas= pd.read_excel(ruta_ventas, sheet_name='BV Sell In Premium', dtype={'Último Eslabón':'str','Material':'str'},header=2)        
     #df_ventas_p= pd.read_excel(ruta_ventas, sheet_name='TD Venta Sell In', header=2, dtype={'Último Eslabón':'str'})
-    df_ventas_p = df_ventas[['Material', 'Promedio de Venta 12M']]
+    df_ventas_p = df_ventas[['Último Eslabón', 'Promedio de Venta 12M']]
+
+
+    # %%
 
 
     # %%
@@ -223,16 +224,49 @@ def main():
     df_n1['fc_anas'] = df_n1['n1_base']
     df_n4['fc_anas'] = df_n4['n4_base']
 
+    df_n1['fc_std'] = df_n1['n1_std']
+    df_n4['fc_std'] = df_n4['n4_std']
+
     # %%
     df_n1 = df_n1.iloc[2:]
     df_n4 = df_n4.iloc[2:]
 
-    # %%
-    for df, anas_col, fc_col, costo in [(df_n1, 'fc_anas', 'fc','Costo Promedio Ponderado'), (df_n4, 'fc_anas', 'fc','Costo Promedio Ponderado')]:
-        df[anas_col] = df[anas_col].str.replace(',', '.', regex=False).astype(float)
-        df[fc_col] = df[fc_col].str.replace(',', '.', regex=False).astype(float)
-        df[costo] = df[costo].str.replace(',', '.', regex=False).astype(float)
+            # %%
+        # Corrige todas las columnas de una sola vez
+    # ==========================================
+    # PROCESAMIENTO PARA DATAFRAME: df_n1
+    # ==========================================
 
+    # 1. Columna: fc_anas
+    # Convertimos a string, quitamos espacios, cambiamos coma por punto
+    df_n1['fc_anas'] = df_n1['fc_anas'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    # Convertimos a número (si falla algo, pondrá NaN en lugar de romper el código)
+    df_n1['fc_anas'] = pd.to_numeric(df_n1['fc_anas'], errors='coerce')
+
+    # 2. Columna: fc
+    df_n1['fc'] = df_n1['fc'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    df_n1['fc'] = pd.to_numeric(df_n1['fc'], errors='coerce')
+
+    # 3. Columna: fc_std
+    df_n1['fc_std'] = df_n1['fc_std'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    df_n1['fc_std'] = pd.to_numeric(df_n1['fc_std'], errors='coerce')
+
+
+    # ==========================================
+    # PROCESAMIENTO PARA DATAFRAME: df_n4
+    # ==========================================
+
+    # 1. Columna: fc_anas
+    df_n4['fc_anas'] = df_n4['fc_anas'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    df_n4['fc_anas'] = pd.to_numeric(df_n4['fc_anas'], errors='coerce')
+
+    # 2. Columna: fc
+    df_n4['fc'] = df_n4['fc'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    df_n4['fc'] = pd.to_numeric(df_n4['fc'], errors='coerce')
+
+    # 3. Columna: fc_std
+    df_n4['fc_std'] = df_n4['fc_std'].astype(str).str.strip().str.replace(',', '.', regex=False)
+    df_n4['fc_std'] = pd.to_numeric(df_n4['fc_std'], errors='coerce')
 
     # %%
     df_n1['ID2'] = df_n1['Cod_Actual_1'] 
@@ -245,11 +279,19 @@ def main():
     # %%
     df_consolidado = pd.concat([df_n1,df_n4], ignore_index=True)
 
+
+
+    # %%
+
+
+
+
+
     # %%
     df_n1
 
     # %%
-    cols = [ 'UE_2', 'ID2','fc_anas','fc','Marca', 'Segmentación Inchcape','Familia','Descripción Material','Periodo','Costo Promedio Ponderado', 'Input']
+    cols = [ 'UE_2', 'ID2','fc_anas','fc','fc_std', 'Marca', 'Segmentación Inchcape','Familia','Descripción Material','Periodo','Costo Promedio Ponderado', 'Input','Legacy_x']
 
 
     # %%
@@ -266,7 +308,7 @@ def main():
 
 
     # %%
-    df_consolidado_red = df_consolidado_red.groupby(['ID2', 'Periodo']).agg({'UE_2':'first', 'fc': 'sum', 'fc_anas':'sum', 'Costo Promedio Ponderado': 'max',  'Marca':'first','Familia':'first'}).reset_index()
+    df_consolidado_red = df_consolidado_red.groupby(['ID2', 'Periodo']).agg({'UE_2':'first', 'fc': 'sum', 'fc_anas':'sum', 'fc_std': 'sum', 'Costo Promedio Ponderado': 'max',  'Marca':'first','Familia':'first','Legacy_x':'first'}).reset_index()
 
     # %%
     df_consolidado_red
@@ -304,7 +346,7 @@ def main():
 
 
     # %%
-    red_columnas = ['Material', 'Venta']
+    red_columnas = ['Último Eslabón', 'Venta']
     df_ventas = df_ventas[red_columnas]
 
     # %%
@@ -312,7 +354,7 @@ def main():
 
     # %%
     cadena_de_remplazo
-
+    print(df_ventas.columns)
     # %%
     # df_ventas = df_ventas.merge(cadena_de_remplazo, left_on='Material', right_on = 'Nro_pieza_fabricante_1' , how='left')
 
@@ -320,7 +362,7 @@ def main():
     # # %%
     # df_ventas['Cod_Actual_1'].fillna(df_ventas['Material'], inplace=True)
     # df_ventas = df_ventas[['Cod_Actual_1','Venta']]
-    df_ventas.rename(columns = {'Material':'Último Eslabón'},inplace=True)
+    # df_ventas.rename(columns = {'Material':'Último Eslabón'},inplace=True)
     df_ventas = df_ventas.groupby(['Último Eslabón']).agg({'Venta': sum}).reset_index()
 
     # %%
@@ -330,7 +372,7 @@ def main():
     # df_ventas_p = df_ventas_p.merge(cadena_de_remplazo, left_on='Material', right_on = 'Nro_pieza_fabricante_1' , how='left')
     # df_ventas_p['Cod_Actual_1'].fillna(df_ventas_p['Material'], inplace=True)
     # df_ventas_p = df_ventas_p[['Cod_Actual_1','Promedio de Venta 12M']]
-    df_ventas_p.rename(columns = {'Material':'Último Eslabón'},inplace=True)
+    #df_ventas_p.rename(columns = {'Material':'Último Eslabón'},inplace=True)
     df_ventas_p = df_ventas_p.groupby(['Último Eslabón']).agg({'Promedio de Venta 12M': sum}).reset_index()
 
     # %%
@@ -340,7 +382,39 @@ def main():
     # %%
     consolidado_cruce_ventas = consolidado_cruce_ventas.drop(['Último Eslabón_x','Último Eslabón_y'], axis=1)
 
+
     # %%
+    consolidado_cruce_ventas
+
+    # %%
+    consolidado_cruce_ventas['Legacy_x'].value_counts()
+
+    # %%
+
+
+    # %%
+    # Actualiza 'Marca' para los registros Legacy BMW según el primer caracter de 'UE_2'
+    mask = consolidado_cruce_ventas['Legacy_x'] == 'Legacy BMW'
+    first_char = consolidado_cruce_ventas.loc[mask, 'UE_2'].astype(str).str.strip().str[0].str.upper()
+
+    mapping = {
+        'B': 'BMW', 'R': 'BMW', 'I': 'BMW',
+        'C': 'BMW Motorrad',
+        'M': 'Mini',
+        'Z': 'Nacional WBM', 'O': 'Nacional WBM'
+    }
+
+    consolidado_cruce_ventas.loc[mask, 'Marca'] = first_char.map(mapping).fillna(consolidado_cruce_ventas.loc[mask, 'Marca'])
+
+    # %%
+
+    # %%
+
+
+
+
+
+
     import tkinter as tk
     from tkinter import filedialog
 
@@ -353,6 +427,12 @@ def main():
     fecha_actual = datetime.today()
     fecha_mes_anterior = fecha_actual - timedelta(days=fecha_actual.day)
     fecha_formateada = fecha_mes_anterior.strftime('%Y-%m')
+
+    # %%
+    fecha_formateada
+
+    # %%
+
 
     meses_espanol = {
         '01': "Enero",
@@ -406,6 +486,12 @@ def main():
             lista_ditec.append(i)
 
 
+    # %%
+    len(lista_bmw)
+
+    # %%
+
+
             
 
     # %%
@@ -417,10 +503,10 @@ def main():
 
     # %%
     dfs = []
-    for i in range(0,4):
+    for i in range(0,len(lista_bmw)):
 
-        df_a = pd.read_excel(carpeta_bmw + '/' + lista_bmw[i],sheet_name='Sheet1')
-        df_b = pd.read_excel(carpeta_ditec + '/' + lista_ditec[i], sheet_name='Sheet1')
+        df_a = pd.read_excel(carpeta_bmw + '/' + lista_bmw[i],sheet_name='Sheet1', dtype={'Material':'str'})
+        df_b = pd.read_excel(carpeta_ditec + '/' + lista_ditec[i], sheet_name='Sheet1',dtype={'Material':'str'})
         df = pd.concat([df_a,df_b])
         dfs.append(df)
 
@@ -501,7 +587,7 @@ def main():
     consolidado_cruce_ventas['Promedio de Venta 12M'] = consolidado_cruce_ventas['Promedio de Venta 12M'].apply(lambda x: x if x >= 0 else 0)
     #consolidado_cruce_ventas['Promedio de Venta 12M'] = consolidado_cruce_ventas['Promedio de Venta 12M']/4
     consolidado_cruce_ventas['Promedio de Venta 12M'] = consolidado_cruce_ventas.apply(
-        lambda row: row['Promedio de Venta 12M'] / semanas_habiles_por_mes.get(fecha_formateada, 1),
+        lambda row: row['Promedio de Venta 12M'] / len(lista_bmw),
         axis=1
     )
 
@@ -515,35 +601,69 @@ def main():
     # %%
     consolidado_cruce_ventas['Total instock'] = consolidado_cruce_ventas.filter(like='INSTOCK').sum(axis=1)
 
+
+    # %%
+    consolidado_cruce_ventas[consolidado_cruce_ventas['ID2']=='B07129909320']
+
+    # %%
+
     # %%
     consolidado_cruce_ventas['MAPE_AJUSTADO'] = abs(consolidado_cruce_ventas['Venta'] - consolidado_cruce_ventas['fc'])
+
+    # %%
+
     consolidado_cruce_ventas['ERP'] = consolidado_cruce_ventas.apply(lambda row: row['fc'] - row['Venta'] if row['fc'] > row['Venta'] else 0, axis=1)
     consolidado_cruce_ventas['ERN'] = consolidado_cruce_ventas.apply(lambda row: row['Venta'] - row['fc'] if row['Venta'] > row['fc'] else 0, axis=1)
     consolidado_cruce_ventas['MAPE_ANASTASIA'] = abs(consolidado_cruce_ventas['Venta'] - consolidado_cruce_ventas['fc_anas'])
-    consolidado_cruce_ventas['ERP_ANASTASIA'] = consolidado_cruce_ventas.apply(lambda row: row['fc_anas'] - row['Venta'] if row['fc_anas'] > row['Venta'] else 0, axis=1)
-    consolidado_cruce_ventas['ERN_ANASTASIA'] = consolidado_cruce_ventas.apply(lambda row: row['Venta'] - row['fc_anas'] if row['Venta'] > row['fc_anas'] else 0, axis=1)
 
     # %%
+
+    consolidado_cruce_ventas['ERP_ANASTASIA'] = consolidado_cruce_ventas.apply(lambda row: row['fc_anas'] - row['Venta'] if row['fc_anas'] > row['Venta'] else 0, axis=1)
+    consolidado_cruce_ventas['ERN_ANASTASIA'] = consolidado_cruce_ventas.apply(lambda row: row['Venta'] - row['fc_anas'] if row['Venta'] > row['fc_anas'] else 0, axis=1)
+    consolidado_cruce_ventas['MAPE_ESTADISTICO'] = abs(consolidado_cruce_ventas['Venta'] - consolidado_cruce_ventas['fc_std'])
+    consolidado_cruce_ventas['ERP_ESTADISTICO'] = consolidado_cruce_ventas.apply(lambda row: row['fc_std'] - row['Venta'] if row['fc_std'] > row['Venta'] else 0, axis=1)
+    consolidado_cruce_ventas['ERN_ESTADISTICO'] = consolidado_cruce_ventas.apply(lambda row: row['Venta'] - row['fc_std'] if row['Venta'] > row['fc_std'] else 0, axis=1)
+
+
+    # %%
+
     consolidado_cruce_ventas['WMAPE'] = consolidado_cruce_ventas['MAPE_AJUSTADO'] / consolidado_cruce_ventas['Venta']
     consolidado_cruce_ventas['WMAPE.1'] = consolidado_cruce_ventas['MAPE_ANASTASIA'] / consolidado_cruce_ventas['Venta']
+
+
+    consolidado_cruce_ventas['WMAPE.2'] = consolidado_cruce_ventas['MAPE_ESTADISTICO'] / consolidado_cruce_ventas['Venta']
+
+    # %%
+
     consolidado_cruce_ventas['Mes'] = hoy.strftime('%Y-%m-%d')
+
+    # %%
+
+    consolidado_cruce_ventas['Costo Promedio Ponderado'] = pd.to_numeric(consolidado_cruce_ventas['Costo Promedio Ponderado'].astype(str).str.replace(',', '.'), errors='coerce').fillna(0)
     consolidado_cruce_ventas['Costo de Venta'] = consolidado_cruce_ventas['Costo Promedio Ponderado'] * consolidado_cruce_ventas['Venta']
+
+    # %%
+
     consolidado_cruce_ventas['Forecast en Costo'] = consolidado_cruce_ventas['Costo Promedio Ponderado'] * consolidado_cruce_ventas['fc']
     consolidado_cruce_ventas['MAPE Costo']  = abs(consolidado_cruce_ventas['Costo de Venta'] - consolidado_cruce_ventas['Forecast en Costo'])
+
+    # %%
     consolidado_cruce_ventas['ERP Costo'] = consolidado_cruce_ventas.apply(lambda row: row['Forecast en Costo'] - row['Costo de Venta'] if row['Forecast en Costo'] > row['Costo de Venta'] else 0, axis=1)
     consolidado_cruce_ventas['ERN Costo'] = consolidado_cruce_ventas.apply(lambda row: row['Costo de Venta'] - row['Forecast en Costo'] if row['Costo de Venta'] > row['Forecast en Costo'] else 0, axis=1)
     consolidado_cruce_ventas['WMAPE Costo'] = consolidado_cruce_ventas['MAPE Costo'] / consolidado_cruce_ventas['Costo de Venta']
 
+    # %%
+
 
 
 
 
     # %%
     # %%
-    consolidado_cruce_ventas = consolidado_cruce_ventas[['ID2', 'Periodo','UE_2','Marca','Familia','Segmentación Inchcape', 'fc', 'fc_anas',
+    consolidado_cruce_ventas = consolidado_cruce_ventas[['ID2', 'Periodo','UE_2','Marca','Familia','Segmentación Inchcape', 'fc', 'fc_anas', 'fc_std',
         'Venta', 'Promedio de Venta 12M', 'Total instock', 'MAPE_AJUSTADO', 'ERP',
-        'ERN', 'MAPE_ANASTASIA', 'ERP_ANASTASIA', 'ERN_ANASTASIA', 'WMAPE',
-        'WMAPE.1', 'Mes', 'Costo Promedio Ponderado', 'Costo de Venta', 'Forecast en Costo', 'MAPE Costo',
+        'ERN', 'MAPE_ANASTASIA', 'ERP_ANASTASIA', 'ERN_ANASTASIA', 'MAPE_ESTADISTICO', 'ERP_ESTADISTICO','ERN_ESTADISTICO','WMAPE',
+        'WMAPE.1', 'WMAPE.2', 'Mes', 'Costo Promedio Ponderado', 'Costo de Venta', 'Forecast en Costo', 'MAPE Costo',
         'ERP Costo', 'ERN Costo', 'WMAPE Costo', 'Input']]
 
     # %%
@@ -551,25 +671,32 @@ def main():
         'ID2': 'Ultimo eslabon',
         'Periodo': 'Periodo (N-4/N-1)',
         'UE_2': 'SKU ERP',
-        'fc': 'FC',
-
         'Marca': 'Marca',
-        'fc_anas': 'Forecast Estadistico',
+        'fc': 'FC Colaborado',
+        'fc_anas': 'Forecast Base',
+        'fc_std' : 'Forecast Estadistico',
+        
         'Venta': 'Venta',
         'Promedio de Venta 12M': 'Prom Venta Real',
         'Total instock': 'Instock VtaCProm',
+
         'MAPE_AJUSTADO': 'MAPE Colaborado',
         'ERP': 'ERP Colab',
         'ERN': 'ERN Colab',
 
-
-
-
         'MAPE_ANASTASIA': "MAPE Base'",
         'ERP_ANASTASIA': "ERP Base'",
         'ERN_ANASTASIA': "ERN Base'",
+
+        'MAPE_ESTADISTICO': "MAPE Estadistico",
+        'ERP_ESTADISTICO': "ERP Estadistico",
+        'ERN_ESTADISTICO': "ERN Estadistico",
+
+    
         'WMAPE': 'WMAPE Colab',
         'WMAPE.1': "WMAPE Base'",
+        'WMAPE.2': "WMAPE Estadistico",
+
         'Mes': 'Mes',
         'Costo Promedio Ponderado': 'Costo Control de Gestión',
         'Costo de Venta': 'Costo de Venta',
@@ -594,17 +721,19 @@ def main():
     consolidado_cruce_ventas.columns
 
     # %%
-    consolidado_cruce_ventas = consolidado_cruce_ventas[
-        ['SKU ERP', 'Ultimo eslabon', 'Familia', 'Marca', 'Segmentación Inchcape', 'Mes',
-        'Periodo (N-4/N-1)', 'Input', 'Venta', 'FC', 'MAPE Colaborado', 'ERP Colab', 'ERN Colab', 'WMAPE Colab',
-        'Forecast Estadistico', "MAPE Base'", "ERP Base'", "ERN Base'", "WMAPE Base'",
+
+
+    # %%
+    consolidado_cruce_ventas = consolidado_cruce_ventas[['SKU ERP', 'Ultimo eslabon', 'Familia', 'Marca', 'Segmentación Inchcape', 'Mes',
+        'Periodo (N-4/N-1)', 'Input', 'Venta', 'FC Colaborado', 'MAPE Colaborado', 'ERP Colab', 'ERN Colab', 'WMAPE Colab',
+        'Forecast Base', "MAPE Base'", "ERP Base'", "ERN Base'", "WMAPE Base'",
+        'Forecast Estadistico', 'MAPE Estadistico',"ERP Estadistico","ERN Estadistico","WMAPE Estadistico",
         'Costo Control de Gestión', 'Costo de Venta', 'Forecast en Costo', 'MAPE Costo',
         'ERP Costo', 'ERN Costo', 'WMAPE Costo', 'Prom Venta Real', 'Instock VtaCProm']]
     # %%
     consolidado_cruce_ventas.to_excel(f'C:/Users/{nombre_usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Forecast Error (Python)/OEM Premium/Bases Forecast/{str(hoy.year)}-{str(hoy.month).zfill(2)} Indicador FC Error OEM Premium {nombre_numero_mes}.xlsx', index=False)
 
     print("Proceso finalizado correctamente🎊.")
-
     # %%
 
 if __name__ == "__main__":

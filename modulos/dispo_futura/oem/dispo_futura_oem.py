@@ -171,10 +171,10 @@ def main():    # %%
 
             for j in archivos_fc:
 
-                if 'OEM' in j:
+                if 'OEM' in j and j.endswith('.xlsm'):
                     archivo = ruta_fc + '/' + i + '/' + j
                     print(f'📂Achivo de FC usado:\n{j}')
-                    df_fc = pd.read_excel(archivo,  sheet_name='MOS Forecast Data', header=3, dtype={'Segmentación Inchcape':'str'})
+                    df_fc = pd.read_excel(archivo,  sheet_name='MOS Forecast Data', header=3, dtype={'Segmentación Inchcape':'str'}, engine='openpyxl')
 
 
     # #LT
@@ -183,7 +183,7 @@ def main():    # %%
     # #STOCK
 
     # %%
-    df_fc
+
 
     # %%
     import tkinter as tk
@@ -218,7 +218,7 @@ def main():    # %%
         return archivo
     
     print("Abriendo selector de archivos...")
-    dtypes = {'Almacén': 'str', 'Centro': 'str'}
+    dtypes = {'Almacén': 'str', 'Centro': 'str','Ult. Eslabon':'str'}
 # Usamos nuestra función segura para hilos
     archivo_stock = seleccionar_archivo_tkinter("Selecciona el archivo de Stock")
 
@@ -1047,7 +1047,7 @@ def main():    # %%
 
 
     columna_fc = f'FC {mes_español}-{año}'
-    df_base_aux[f'COBERTURA-{pos_columns[0][10:]}']= (df_base_aux[f'POS-STOCK-{pos_columns[0][10:]}']/((df_base_aux[columna_fc]/2)))
+    df_base_aux[f'COBERTURA-{pos_columns[0][10:]}']= (df_base_aux[f'POS-STOCK-{pos_columns[0][10:]}']/((df_base_aux[columna_fc])))
     df_base_aux[f'COBERTURA-{pos_columns[0][10:]}'].replace([np.inf, -np.inf, np.nan], '-', inplace=True)
     mes = pos_columns[1][15:18]
     año = pos_columns[1][12:14]

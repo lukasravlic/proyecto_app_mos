@@ -24,30 +24,39 @@ def main():
     columnas = ['Nro. DT', 'Vía (Texto)']
 
     # Function to find and read the file that contains today's date
-    def find_file_with_today_date(date_str):
-        for archivo in os.listdir(carpeta_fechas):
-            if date_str in archivo:  # Check if today's date is in the file name
-                ruta = os.path.join(carpeta_fechas, archivo)
-                try:
-                    df_fechas = pd.read_excel(ruta, sheet_name='Data', dtype={'Nro. DT': 'str'})
-                    print(f"Archivo encontrado: {ruta}")
-                    return df_fechas
-                except Exception as e:
-                    print(f"Error al leer el archivo: {ruta}. Detalles: {e}")
-                    return None
-        print(f"No se encontró un archivo que contenga la fecha {date_str}.")
+    def find_file_with_today_date(date_str=None):
+        archivos = os.listdir(carpeta_fechas)
+        
+        if not archivos:
+            print("No se encontraron archivos en la carpeta.")
+            return None
+
+        # Ordenar por fecha de modificación, el más reciente primero
+        archivos_ordenados = sorted(
+            archivos,
+            key=lambda f: os.path.getmtime(os.path.join(carpeta_fechas, f)),
+            reverse=True
+        )
+
+        for archivo in archivos_ordenados:
+            ruta = os.path.join(carpeta_fechas, archivo)
+            try:
+                df_fechas = pd.read_excel(ruta, sheet_name='Data', dtype={'Nro. DT': 'str'})
+                print(f"Archivo más reciente encontrado: {ruta}")
+                return df_fechas
+            except Exception as e:
+                print(f"Error al leer el archivo: {ruta}. Detalles: {e}")
+
+        print("No se pudo leer ningún archivo de la carpeta.")
         return None
 
     # Find the file with today's date
-    df_fechas = find_file_with_today_date(hoy)
+    
+    df_fechas = find_file_with_today_date()
+   
 
-    # Continue with your further processing
-    if df_fechas is not None:
-        # Realiza las operaciones con df_fechas
-        pass
-    else:
-        # Maneja el caso en el que no se encontró el archivo
-        pass
+
+
 
 
 

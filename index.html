@@ -14,8 +14,11 @@
    
 </head>
 <body>
+    <!-- Contenedor principal del layout que organiza el sidebar y el contenido central -->
     <div class="layout">
+        <!-- Barra de Navegación Lateral (Sidebar) -->
         <nav class="sidebar">
+                <!-- Título del menú de navegación -->
                 <h2>Reportes</h2>
                 <ul>
                     <li><button class="sidebar-link" data-section="mos">MOS</button></li>
@@ -24,13 +27,18 @@
                     <li><button class="sidebar-link" data-section="gc">Gere Comex</button></li>
                     <li><button class="sidebar-link" data-section="fe">Forecast Error</button></li>
                     <li><button class="sidebar-link" data-section="lc">Land Cost</button></li>
+                    <li><button class="sidebar-link" data-section="transito">Transito</button></li>
+                    <!-- Elemento especial al final para la sección de Manuales -->
                     <li class="sidebar-manuales-item"><button class="sidebar-link sidebar-manuales-link" data-section="manuales">Manuales</button></li>
-                    <!-- Agrega más secciones si lo deseas -->
                 </ul>
         </nav>
+
+        <!-- Contenedor para las secciones centrales que se muestran dinámicamente -->
         <div class="center-wrapper">
+            <!-- ===== SECCIÓN MOS ===== -->
+            <!-- Esta sección permite ejecutar scripts relacionados con el reporte MOS. -->
             <section class="cuadro center-section" id="section-mos">
-                <div class="seccion-1 titulo">
+                <div class="titulo">
                     <h1>Tratamiento bases MOS</h1>
                     <form action="" class="form">
                         <label for="reportSelect">Selecciona un reporte:</label>
@@ -40,14 +48,8 @@
                             <option value="scriptC">MARA</option>
                         </select>
                     </form>
-
-
-                    <div class="manual-link-wrapper">
-                
-
-                    
                 </div>
-
+                <!-- Contenedor para los botones de ejecución de scripts -->
                 <div class="botones">
                     <button class="script-button scriptA-button" data-script="1">Mainstream</button>
                     <button class="script-button scriptA-button" data-script="2">AXS</button>
@@ -64,15 +66,16 @@
                     <button class="script-button scriptC-button hidden" data-script="9">Consolidar MARA</button>
                   
                 </div>
+                <!-- Enlace al manual de usuario específico para esta sección -->
                 <div class="manual-link-wrapper">
                     <a href="https://inchcapeuk.sharepoint.com/:w:/r/sites/PlanificacionyComprasCL/Documentos%20compartidos/Planificacion%20y%20Compras%20Procesos%20y%20Metodos/Procedimientos%20y%20Estandar%20Procesos%20y%20Metodos/Procedimiento%20de%20Preparaci%C3%B3n%20y%20Actualizaci%C3%B3n%20Panel%20MOS.docx?d=w1107c516488e48358f0c143a52fb25d8&csf=1&web=1&e=xlXaCU" target="_blank" class="manual-link">Manual de Uso MOS</a>
                 </div>
-                
-                
             </section>
-                
+
+            <!-- ===== SECCIÓN GERE SOLPED (GS) ===== -->
+            <!-- Sección para la gestión de solicitudes de pedido. -->
             <section  class="cuadro center-section hidden" id="section-gs">
-                <div class="seccion-2">
+                <div class="titulo">
                     <h1>Gere Solped</h1>
                 </div>
 
@@ -83,18 +86,18 @@
                     </div>
                     <button class="script-button gs-bottom" data-script="GS3">Consolidación</button>   
                 </div>
+                <!-- Enlace al manual de usuario -->
                 <div class="manual-link-wrapper">
                         <a href="https://inchcapeuk.sharepoint.com/:w:/r/sites/PlanificacionyComprasCL/Documentos%20compartidos/Planificacion%20y%20Compras%20Procesos%20y%20Metodos/Procedimientos%20y%20Estandar%20Procesos%20y%20Metodos/Procedimiento%20de%20Preparaci%C3%B3n%20y%20Actualizaci%C3%B3n%20Panel%20MOS.docx?d=w1107c516488e48358f0c143a52fb25d8&csf=1&web=1&e=xlXaCU" target="_blank" class="manual-link">Manual de Uso Gere Solped</a>
                 </div>
-            
             </section>
-               
 
-            
-        <!-- ...contenido de Gere Solped... -->
+            <!-- ===== SECCIÓN DISPONIBILIDAD FUTURA (DISPO) ===== -->
+            <!-- Permite ejecutar scripts relacionados con la disponibilidad futura por legacy. -->
             <section class="cuadro center-section section-dispo hidden" id="section-dispo">
-                <div class="seccion-3 titulo">
+                <div class="titulo">
                     <h1>Disponibilidad Futura</h1>
+                    <!-- Formulario para seleccionar el legacy -->
                     <form action="" class="form">
                         <label for="reportSelect">Selecciona Legacy:</label>
                         <select id="reportSelectDf" class="dropdown">
@@ -105,37 +108,38 @@
                         </select>
                     </form>
                 </div>
-
+                <!-- Contenedor para los botones de ejecución de scripts -->
                 <div class="botones">
                     <button class="script-button scriptdfOem-button" data-script="dfOem">DF OEM</button>
                     <button class="script-button scriptdfAxs-button hidden" data-script="dfAxs">DF AXS</button>
                     <button class="script-button scriptdfInp-button hidden" data-script="dfInp">DF Inchcape</button>
                     <button class="script-button scriptdfDitec-button hidden" data-script="dfDitec">DF Ditec</button>
-
-                    <!-- Botones para Script B (inicialmente ocultos) -->
-  
                 </div>
+                <!-- Enlace al manual de usuario -->
                 <div class="manual-link-wrapper">
                     <a href="https://inchcapeuk.sharepoint.com/:w:/r/sites/PlanificacionyComprasCL/Documentos%20compartidos/Planificacion%20y%20Compras%20Procesos%20y%20Metodos/Procedimientos%20y%20Estandar%20Procesos%20y%20Metodos/Procedimiento%20de%20Preparaci%C3%B3n%20y%20Actualizaci%C3%B3n%20Panel%20MOS.docx?d=w1107c516488e48358f0c143a52fb25d8&csf=1&web=1&e=xlXaCU" target="_blank" class="manual-link">Manual de Uso Disponibilidad Futura</a>
                 </div>
-
-                
             </section>
+
+            <!-- ===== SECCIÓN GERE COMEX (GC) ===== -->
+            <!-- Sección para la gestión de COMEX. -->
             <section  class="cuadro center-section hidden" id="section-gc">
-                <div class="seccion-2">
+                <div class="titulo">
                     <h1>Gere Comex</h1>
                 </div>
 
                 <div class="botones gc-botones">
                     <div class="gc-row">
+                        <!-- Este botón probablemente ejecuta un script para descargar datos de SAP -->
                         <button class="script-button" data-script="GC1">Descargas SAP</button>
                     </div>   
                 </div>
             
             </section>
-
+            <!-- ===== SECCIÓN FORECAST ERROR (FE) ===== -->
+            <!-- Sección para análisis y ejecución de scripts de Forecast Error. -->
             <section  class="cuadro center-section hidden" id="section-fe">
-                <div class="seccion-3 titulo">
+                <div class="titulo">
                     <h1>Forecast Error</h1>
                     <form action="" class="form">
                         <label for="reportSelectFe">Selecciona un reporte:</label>
@@ -154,9 +158,10 @@
                 </div>
             
             </section>
-
+            <!-- ===== SECCIÓN MANUALES ===== -->
+            <!-- Esta sección centraliza los enlaces a todos los manuales de usuario. -->
             <section class="cuadro center-section hidden" id="section-manuales">
-                <div class="seccion-manuales titulo">
+                <div class="titulo">
                     <h1>Manuales de Usuario</h1>
                 </div>
                 <div class="manuales-links flex flex-col space-y-4 p-4">
@@ -164,12 +169,14 @@
                         <a href="https://ejemplo.com/manual_mos.docx" target="_blank" class="manual-link">Manual de MOS</a>
                     </div>
                     <a href="https://ejemplo.com/manual_disponibilidad_futura.docx" target="_blank" class="text-blue-600 hover:underline">Manual de Disponibilidad Futura</a>
-                    <!-- Agrega más enlaces a tus manuales aquí, asegurándote de usar las URLs reales de tus documentos de Word en línea. -->
+                    <!-- TODO: Agregar más enlaces a manuales reales aquí. -->
                     <p class="text-sm text-gray-500 mt-4">Nota: Estos son enlaces de ejemplo. Reemplázalos con las URLs reales de tus documentos de Word en línea.</p>
                 </div>
             </section>
+            <!-- ===== SECCIÓN LAND COST (LC) ===== -->
+            <!-- Sección para la gestión y cálculo de Land Cost. -->
             <section  class="cuadro center-section hidden" id="section-lc">
-                <div class="seccion-2">
+                <div class="titulo">
                     <h1>Land Cost</h1>
                 </div>
 
@@ -183,39 +190,64 @@
                 <div class="manual-link-wrapper">
                         <a href="https://inchcapeuk.sharepoint.com/:w:/r/sites/PlanificacionyComprasCL/Documentos%20compartidos/Planificacion%20y%20Compras%20Procesos%20y%20Metodos/Procedimientos%20y%20Estandar%20Procesos%20y%20Metodos/Procedimiento%20de%20Preparaci%C3%B3n%20y%20Actualizaci%C3%B3n%20Panel%20MOS.docx?d=w1107c516488e48358f0c143a52fb25d8&csf=1&web=1&e=xlXaCU" target="_blank" class="manual-link">Manual de Uso Land Cost</a>
                 </div>
-        
+            </section>
+
+            <!-- // =================================================================================
+            // -------------------------------SECCIÓN TRANSITO---------------------------------------
+            // ================================================================================= -->
+
+            <section class="cuadro center-section hidden" id="section-transito">
+                <div class="titulo">
+                    <h1>Transito</h1>
+                </div>
+                <div class="botones tr-botones">
+                    <div class="tr-row">
+                        <button class="script-button" data-script="tr1">Tránsito</button>
+                        <button class="script-button" data-script="tr2">OC Producción</button>
+                        <button class="script-button" data-script="tr3">Transformación de Maestros</button>
+                    </div>
+                  
+                </div>
             </section>
         </div>
     </div>
     <script>
-        // 1. Referencias a elementos del DOM
-        // Referencias generales
+        // =================================================================================
+        // 1. REFERENCIAS A ELEMENTOS DEL DOM
+        // Se declaran constantes para acceder a los elementos HTML que se manipularán.
+        // =================================================================================
+
+        // --- Elementos Generales ---
         const sidebarLinks = document.querySelectorAll('.sidebar-link');
         const centerSections = document.querySelectorAll('.center-section');
-        // const outputConsole = document.getElementById('outputConsole'); // Descomentar si tienes un elemento con id="outputConsole"
 
-        // Referencias para la sección MOS
+        // --- Elementos de la Sección MOS ---
         const reportSelect = document.getElementById('reportSelect');
         const scriptAButtons = document.querySelectorAll('.scriptA-button');
         const scriptBButtons = document.querySelectorAll('.scriptB-button');
         const scriptCButtons = document.querySelectorAll('.scriptC-button');
 
-        // Referencias para la sección Disponibilidad Futura
+        // --- Elementos de la Sección Disponibilidad Futura ---
         const reportSelectDf = document.getElementById('reportSelectDf');
         const scriptdfOemButtons = document.querySelectorAll('.scriptdfOem-button');
         const scriptdfAxsButtons = document.querySelectorAll('.scriptdfAxs-button');
         const scriptdfInpButtons = document.querySelectorAll('.scriptdfInp-button');
         const scriptdfDitecButtons = document.querySelectorAll('.scriptdfDitec-button');
 
-        // Referencias para la sección Forecast Error
+        // --- Elementos de la Sección Forecast Error ---
         const reportSelectFe = document.getElementById('reportSelectFe');
         const scriptFeOemButtons = document.querySelectorAll('.scriptFeOem-button');
         const scriptUnirBasesButtons = document.querySelectorAll('.scriptUnirBases-button');
         const scriptFePremiumButtons = document.querySelectorAll('.scriptFePremium-button');
 
-        // 2. Funciones para actualizar la interfaz de usuario
+        // =================================================================================
+        // 2. FUNCIONES PARA ACTUALIZAR LA INTERFAZ DE USUARIO (UI)
+        // Funciones que modifican la visibilidad de los elementos en la página.
+        // =================================================================================
 
-        // Función para mostrar/ocultar botones en la sección MOS
+        /**
+         * Muestra u oculta los grupos de botones en la sección MOS según la selección en el dropdown.
+         */
         function updateButtons() {
             const selectedValue = reportSelect.value;
 
@@ -234,7 +266,9 @@
             }
         }
 
-        // Función para mostrar/ocultar botones en Disponibilidad Futura
+        /**
+         * Muestra u oculta los botones en la sección "Disponibilidad Futura" según el legacy seleccionado.
+         */
         function updateDfButtons() {
             const selectedValue = reportSelectDf.value;
 
@@ -256,7 +290,9 @@
             }
         }
 
-        // Función para mostrar/ocultar botones en Forecast Error
+        /**
+         * Muestra u oculta los botones en la sección "Forecast Error" según el reporte seleccionado.
+         */
         function updateFeButtons() {
             const selectedValue = reportSelectFe.value;
 
@@ -275,46 +311,52 @@
             }
         }
 
-        // 3. Manejadores de eventos
+        // =================================================================================
+        // 3. MANEJADORES DE EVENTOS (EVENT LISTENERS)
+        // Asignan funciones a eventos como 'change' o 'click'.
+        // =================================================================================
 
-        // Event listener para el select de la sección MOS
+        // Asigna la función `updateButtons` al evento 'change' del dropdown de la sección MOS.
         reportSelect.addEventListener('change', updateButtons);
 
-        // Event listener para el select de Disponibilidad Futura
-        if (reportSelectDf) { // Se verifica si el elemento existe antes de añadir el listener
+        // Asigna el listener para el dropdown de Disponibilidad Futura, si existe.
+        if (reportSelectDf) {
             reportSelectDf.addEventListener('change', updateDfButtons);
         }
 
-        // Event listener para el select de Forecast Error
-        if (reportSelectFe) { // Se verifica si el elemento existe antes de añadir el listener
+        // Asigna el listener para el dropdown de Forecast Error, si existe.
+        if (reportSelectFe) {
             reportSelectFe.addEventListener('change', updateFeButtons);
         }
 
-        // Navegación de la barra lateral para mostrar la sección correspondiente
+        /**
+         * Maneja la navegación del sidebar. Al hacer clic en un enlace:
+         * 1. Marca el enlace como activo.
+         * 2. Oculta todas las secciones de contenido.
+         * 3. Muestra solo la sección correspondiente al enlace clickeado.
+         */
         sidebarLinks.forEach(btn => {
             btn.addEventListener('click', function() {
-                // Quita la clase activa de todos
+                // Gestiona la clase 'active' para el feedback visual
                 sidebarLinks.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
 
-                // Oculta todas las secciones centrales
+                // Oculta todas las secciones
                 centerSections.forEach(sec => sec.classList.add('hidden'));
 
-                // Muestra la sección correspondiente
+                // Muestra la sección correcta usando el atributo 'data-section'
                 const section = this.getAttribute('data-section');
                 document.getElementById('section-' + section).classList.remove('hidden');
             });
         });
 
-        // Manejo del click en los botones de script
+        /**
+         * Maneja el clic en cualquier botón de ejecución de script.
+         * Llama a la API de Python (pywebview) para ejecutar el script correspondiente.
+         */
         document.querySelectorAll('.script-button').forEach(button => {
             button.addEventListener('click', () => {
                 const scriptId = button.getAttribute('data-script');
-                // let nombreScript = ''; // Esta variable no se usa, se puede eliminar o usar para logging
-                // if (scriptId === '1') nombreScript = 'fc_consolidado_mainstream.py';
-                // else if (scriptId === '2') nombreScript = 'script2.py';
-                // ...agrega más si tienes otros scripts...
-
                 if (typeof pywebview !== 'undefined' && pywebview.api && pywebview.api.execute_script) {
                     pywebview.api.execute_script(scriptId);
                 }
@@ -322,32 +364,26 @@
             });
         });
 
-        // 4. Inicialización al cargar la página
+        // =================================================================================
+        // 4. INICIALIZACIÓN AL CARGAR LA PÁGINA
+        // Código que se ejecuta una vez que el contenido del DOM está completamente cargado.
+        // =================================================================================
         window.addEventListener('DOMContentLoaded', () => {
-            // Activa la primera sección de la barra lateral al cargar
+            // Al cargar la página, activa la sección 'mos' por defecto.
             const initialSidebarLink = document.querySelector('.sidebar-link[data-section="mos"]');
             if (initialSidebarLink) {
                 initialSidebarLink.classList.add('active');
                 document.getElementById('section-mos').classList.remove('hidden');
             }
 
-            // Llama a las funciones de actualización para establecer el estado inicial correcto de los botones
+            // Asegura que los botones correctos estén visibles desde el inicio.
             updateButtons();
             if (reportSelectDf) updateDfButtons();
             if (reportSelectFe) updateFeButtons();
         });
 
-        // Funciones para la consola de salida (comentadas)
-        // function appendOutput(message) {
-        //     const p = document.createElement('p');
-        //     p.textContent = message;
-        //     outputConsole.appendChild(p);
-        //     outputConsole.scrollTop = outputConsole.scrollHeight;
-        // }
-        // Función para limpiar la consola de salida
-        // function clearOutput() {
-        //     outputConsole.innerHTML = '';
-        // }
+        // NOTA: Las funciones para una consola de salida en el frontend se han mantenido comentadas
+        // ya que no hay un elemento con id="outputConsole" en el HTML actual.
     </script>
 </body>
 </html>

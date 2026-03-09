@@ -308,14 +308,14 @@ def main():
     n = len(filtered_df)
 
     # Calcular el punto medio
-    midpoint = n // 2
+
 
     # Dividir en dos DataFrames
-    filtered_df_1 = filtered_df['Referencia'].iloc[:midpoint]
-    filtered_df_2 = filtered_df['Referencia'].iloc[midpoint:]
+    filtered_df_1 = filtered_df['Referencia']
+
 
     # %%
-    filtered_df_1
+   
 
     # %%
     filtered_df_1.to_clipboard(header=False, index=False)
@@ -346,8 +346,8 @@ def main():
     session.findById("wnd[0]/usr/radX_AISEL").select()
     session.findById("wnd[0]/usr/ctxtSD_SAKNR-LOW").text = "1104040001"
     session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").text = "CL07"
-    session.findById("wnd[0]/usr/ctxtSO_BUDAT-LOW").text = "01.01.2024"
-    session.findById("wnd[0]/usr/ctxtSO_BUDAT-HIGH").text = "31.12.2025"
+    session.findById("wnd[0]/usr/ctxtSO_BUDAT-LOW").text = "01.01.2025"
+    session.findById("wnd[0]/usr/ctxtSO_BUDAT-HIGH").text = "31.12.2026"
     session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").setFocus()
     session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").caretPosition = 4
     session.findById("wnd[0]").sendVKey(8)
@@ -380,80 +380,18 @@ def main():
     session.findById("wnd[0]").sendVKey(3)
 
 
-
+    time.sleep(20)
 
     # %%
-    filtered_df_2.to_clipboard(header=False, index=False)
-    # Initialize SAP GUI scripting
-    SapGuiAuto = win32com.client.GetObject("SAPGUI")
-    application = SapGuiAuto.GetScriptingEngine
-    connection = application.Children(0)
-    session = connection.Children(0)
-
-    # Maximize the window
-    session.findById("wnd[0]").maximize()
-
-    # Execute transaction code "fbl3n"
-    session.findById("wnd[0]/tbar[0]/okcd").text = "fbl3n"
-    session.findById("wnd[0]").sendVKey(0)
-
-    # Interact with elements
-    session.findById("wnd[0]/tbar[1]/btn[16]").press()
-    session.findById("wnd[0]/usr/ssub%_SUBSCREEN_%_SUB%_CONTAINER:SAPLSSEL:2001/ssubSUBSCREEN_CONTAINER2:SAPLSSEL:2000/cntlSUB_CONTAINER/shellcont/shellcont/shell/shellcont[1]/shell").selectNode("         37")
-    session.findById("wnd[0]/usr/ssub%_SUBSCREEN_%_SUB%_CONTAINER:SAPLSSEL:2001/ssubSUBSCREEN_CONTAINER2:SAPLSSEL:2000/cntlSUB_CONTAINER/shellcont/shellcont/shell/shellcont[1]/shell").topNode = "         30"
-    session.findById("wnd[0]/usr/ssub%_SUBSCREEN_%_SUB%_CONTAINER:SAPLSSEL:2001/ssubSUBSCREEN_CONTAINER2:SAPLSSEL:2000/cntlSUB_CONTAINER/shellcont/shellcont/shell/shellcont[1]/shell").doubleClickNode("         37")
-    session.findById("wnd[0]/usr/ssub%_SUBSCREEN_%_SUB%_CONTAINER:SAPLSSEL:2001/ssubSUBSCREEN_CONTAINER2:SAPLSSEL:2000/ssubSUBSCREEN_CONTAINER:SAPLSSEL:1106/btn%_%%DYN009_%_APP_%-VALU_PUSH").press()
-    session.findById("wnd[1]/tbar[0]/btn[24]").press()
-    session.findById("wnd[1]/tbar[0]/btn[0]").press()
-    session.findById("wnd[1]/tbar[0]/btn[8]").press()
-
-    # Set selection criteria
-    session.findById("wnd[0]/usr/radX_AISEL").select()
-    session.findById("wnd[0]/usr/ctxtSD_SAKNR-LOW").text = "1104040001"
-    session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").text = "CL07"
-    session.findById("wnd[0]/usr/ctxtSO_BUDAT-LOW").text = "01.01.2024"
-    session.findById("wnd[0]/usr/ctxtSO_BUDAT-HIGH").text = "31.12.2025"
-    session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").setFocus()
-    session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").caretPosition = 4
-    session.findById("wnd[0]").sendVKey(8)
-
-    # Change selection criteria
-
-    session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").text = "CL02"
-    session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").setFocus()
-    session.findById("wnd[0]/usr/ctxtSD_BUKRS-LOW").caretPosition = 4
-    session.findById("wnd[0]").sendVKey(8)
-
-    # Execute commands and navigate
-    session.findById("wnd[0]/usr/lbl[29,2]").setFocus()
-    session.findById("wnd[0]/usr/lbl[29,2]").caretPosition = 69
-    session.findById("wnd[0]").sendVKey(16)
-    session.findById("wnd[1]/tbar[0]/btn[0]").press()
-
-    # Set the file path for export
-    session.findById("wnd[1]/usr/ctxtDY_PATH").setFocus()
-    session.findById("wnd[1]/usr/ctxtDY_PATH").caretPosition = 0
-    session.findById("wnd[1]").sendVKey(4)
-    session.findById("wnd[2]/usr/ctxtDY_PATH").text = f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Land Cost"
-    session.findById("wnd[2]/usr/ctxtDY_FILENAME").text = "iva_r3_2.XLSX"
-    session.findById("wnd[2]/usr/ctxtDY_FILENAME").caretPosition = 6
-    session.findById("wnd[2]/tbar[0]/btn[11]").press()
-    session.findById("wnd[1]/tbar[0]/btn[11]").press()
-
-    # Close the windows
-    session.findById("wnd[0]").sendVKey(3)
-    session.findById("wnd[0]").sendVKey(3)
-
-
 
 
     # # %%
     # time.sleep(20)
     iva_1 = pd.read_excel(f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Land Cost/iva_r3_1.XLSX")
-    iva_2 = pd.read_excel(f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Land Cost/iva_r3_2.XLSX")
-    df_iva=pd.concat([iva_1, iva_2])
+    # iva_2 = pd.read_excel(f"C:/Users/{usuario}/Inchcape/Planificación y Compras Chile - Documentos/Planificación y Compras KPI-Reportes/Land Cost/iva_r3_2.XLSX")
+    # df_iva=pd.concat([iva_1, iva_2])
 
-    df_iva = df_iva[['Referencia','Importe en moneda local']]
+    df_iva = iva_1[['Referencia','Importe en moneda local']]
 
     # %%
     df_iva = df_iva.groupby('Referencia').max().reset_index()
@@ -529,7 +467,7 @@ def main():
     df_fechas
 
     # %%
-    columnas = ['Nro. DT','Proveedor','Nombre del Embarcador','Vía (Texto)', 'País Origen','Pto. Origen', 'Fe. ATA']
+    columnas = ['Nro. DT','Proveedor','Nombre Proveedor','Vía (Texto)', 'País Origen','Pto. Origen', 'Fe. ATA']
     df_fechas_columnas = df_fechas[columnas]
 
     # %%

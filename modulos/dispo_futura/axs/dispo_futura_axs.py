@@ -233,7 +233,11 @@ def main():
     df_sp_1 = df_sp_1.drop('Nro_pieza_fabricante_1', axis=1)
 
     # %%
-    df_codigo = df_sp_1[df_sp_1['Vigencia Derco']=='1']
+    # %%
+    df_codigo = df_sp_1[
+        df_sp_1['Vigencia Derco'].astype(str).str.contains('1', na=False)
+    ]
+
 
     # %%
     df_codigo.drop_duplicates(subset='Material actual', inplace=True)
@@ -763,7 +767,7 @@ def main():
 
 
     columna_fc = f'FC {mes_español}-{año}'
-    df_base_aux[f'COBERTURA-{pos_columns[0][10:]}']= (df_base_aux[f'POS-STOCK-{pos_columns[0][10:]}']/((df_base_aux[columna_fc]/2)))
+    df_base_aux[f'COBERTURA-{pos_columns[0][10:]}']= (df_base_aux[f'POS-STOCK-{pos_columns[0][10:]}']/((df_base_aux[columna_fc])))
     df_base_aux[f'COBERTURA-{pos_columns[0][10:]}'].replace([np.inf, -np.inf, np.nan], '-', inplace=True)
     mes = pos_columns[1][15:18]
     año = pos_columns[1][12:14]
